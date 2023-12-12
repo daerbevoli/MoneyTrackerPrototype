@@ -13,12 +13,13 @@ public class ExactExpense extends Expense {
 
     @Override
     public boolean validate() {
+        // if any split in splits is not an exact split return false
         for (Split split : getSplits()) {
             if (!(split instanceof ExactSplit)) {
                 return false;
             }
         }
-
+        // if the different amount does not equal the total amount paid, return false
         double totalAmount = getAmount();
         double sumSplitAmount = 0;
         for (Split split : getSplits()) {

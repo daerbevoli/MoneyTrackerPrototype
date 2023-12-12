@@ -1,12 +1,10 @@
 package be.uantwerpen.fti.ei.ExpenseManager;
 
 import be.uantwerpen.fti.ei.DB.Database;
-import be.uantwerpen.fti.ei.DB.UserDB;
 import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.Split.Split;
 import be.uantwerpen.fti.ei.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +13,7 @@ import java.util.Map;
 // controller in the MVC design pattern
 public class ExpenseManager {
 
-    private final Database expenses;
-    private final Database users;
+    private final Database expenses, users;
     Map<User, Map<User, Double>> balanceSheet;
 
     public ExpenseManager(Database users, Database expenses) {

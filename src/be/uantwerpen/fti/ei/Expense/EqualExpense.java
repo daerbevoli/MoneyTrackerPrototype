@@ -13,6 +13,7 @@ public class EqualExpense extends Expense {
 
     @Override
     public boolean validate() {
+        // if any split in splits is not an equal split return false
         for (Split split : getSplits()) {
             if (!(split instanceof EqualSplit)) {
                 return false;
