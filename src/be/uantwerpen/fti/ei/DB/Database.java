@@ -6,7 +6,6 @@ import be.uantwerpen.fti.ei.SubjectObservers.Subject;
 import be.uantwerpen.fti.ei.User;
 
 public abstract class Database implements Subject {
-//aa
     // used by user db
     public abstract void addUser(User user);
 
