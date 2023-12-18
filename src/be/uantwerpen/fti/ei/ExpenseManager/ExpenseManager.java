@@ -5,16 +5,14 @@ import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.Split.Split;
 import be.uantwerpen.fti.ei.User;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 // expense manager / controller class
 // controller in the MVC design pattern
 public class ExpenseManager {
 
     private final Database expenses, users;
-    Map<User, Map<User, Double>> balanceSheet;
+    private final Map<User, Map<User, Double>> balanceSheet;
 
     public ExpenseManager(Database users, Database expenses) {
         this.users = users;
@@ -30,7 +28,6 @@ public class ExpenseManager {
     public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
         Expense expense = ExpenseFactory.createExpense(name, expenseType, amount, paidBy, splits);
         expenses.addExpense(expense);
-        assert expense != null;
         for (Split split : expense.getSplits()) {
             User paidTo = split.getUser();
             Map<User, Double> balances = balanceSheet.get(paidBy);
@@ -46,6 +43,8 @@ public class ExpenseManager {
             balances.put(paidBy, balances.get(paidBy) - split.getAmount());
         }
     }
+
+    // yet to add a debt settling algo that minimizes the total mount of transactions
 
     public void showExpenses(){
         expenses.printDb();
@@ -84,6 +83,17 @@ public class ExpenseManager {
             System.out.println("No balances");
         }
     }
+
+    /*
+    correct:
+
+    john owes sam: 75.0
+    john owes steve: 200.0
+
+
+    /*public void showBalances(){
+        settleDebts(balanceSheet);
+    }*/
 
     private void printBalance(User user1, User user2, double amount) {
         String user1Name = user1.getName();
