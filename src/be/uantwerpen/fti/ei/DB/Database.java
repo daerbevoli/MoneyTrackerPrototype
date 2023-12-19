@@ -18,6 +18,9 @@ public abstract class Database implements Subject {
     // used by both dbs to print the element from the db
     public abstract void printDb();
 
+    // check whether the database is empty
+    public abstract boolean isEmpty();
+
     // Observer design pattern
     public abstract void register(Observer o);
 

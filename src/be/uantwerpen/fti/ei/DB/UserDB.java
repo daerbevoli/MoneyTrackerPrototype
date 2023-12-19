@@ -34,6 +34,11 @@ public class UserDB extends Database {
         }
     }
 
+    @Override
+    public boolean isEmpty() {
+        return db.isEmpty();
+    }
+
     // empty method, see database class
     @Override
     public void addExpense(Expense expense) {

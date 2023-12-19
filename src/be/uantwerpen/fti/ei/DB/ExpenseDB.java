@@ -55,6 +55,11 @@ public class ExpenseDB extends Database{
         }
     }
 
+    @Override
+    public boolean isEmpty() {
+        return db.isEmpty();
+    }
+
     // Observer design pattern
     @Override
     public void register(Observer o) {
