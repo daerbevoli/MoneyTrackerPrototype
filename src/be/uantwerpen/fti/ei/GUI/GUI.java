@@ -14,7 +14,7 @@ public class GUI extends JFrame {
     public GUI(ExpenseManager expenseManager){
         this.expenseManager = expenseManager;
 
-        homePanel = new HomePanel();
+        homePanel = new HomePanel(expenseManager);
         this.add(homePanel.getCardPanel(), BorderLayout.CENTER);
         this.add(homePanel.getControlPanel(), BorderLayout.SOUTH);
 

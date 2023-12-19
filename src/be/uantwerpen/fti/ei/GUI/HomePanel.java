@@ -1,50 +1,47 @@
 package be.uantwerpen.fti.ei.GUI;
 
+import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
+import be.uantwerpen.fti.ei.User;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class HomePanel {
 
+    private final ExpenseManager expenseManager;
+
     private final CardLayout cardLayout;
     private final JPanel cardPanel;
     JPanel controlPanel = new JPanel();
+    private final UserForm userForm;
+
+    private final JButton addUser;
 
 
+    private final JButton switchUsers;
+    private final JButton switchTickets;
+    private final JButton switchFeed;
 
 
-    private JPanel userPanel;
-    private JButton addUser;
+    public HomePanel(ExpenseManager expenseManager) {
+        this.expenseManager = expenseManager;
 
-    private userForm userForm;
-
-
-    private final JPanel ticketsPanel;
-    private final JPanel feedPanel;
-
-    private JButton switchUsers;
-    private JButton switchTickets;
-    private JButton switchFeed;
-
-
-    public HomePanel() {
         // cardLayout is used to manage a stack of components where only one component (panel) is visible at a time.
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
-        userForm = new userForm();
-        addUser = new JButton("add user");
+        JPanel userPanel = createPanel("Users");
+        JPanel ticketsPanel = createPanel("Tickets");
+        JPanel feedPanel = createPanel("feed");
 
-        userPanel = createPanel("Users");
+
+        userForm = new UserForm();
+        addUser = new JButton("add user");
+        addUser.setBounds(200, 200, 50, 50);
 
         userPanel.add(addUser);
         addUserAction();
-
-        userForm.getOk().addActionListener(listener -> {
-            cardLayout.show(cardPanel, "Users");
-        });
-
-        ticketsPanel = createPanel("Tickets");
-        feedPanel = createPanel("feed");
+        addUserformOkAction();
 
         cardPanel.add(userPanel, "Users");
         cardPanel.add(userForm, "userform");
@@ -81,26 +78,26 @@ public class HomePanel {
     }
 
     private void addSwitchUsersAction(){
-        this.switchUsers.addActionListener(listener -> {
-            cardLayout.show(cardPanel, "Users");
-        });
+        this.switchUsers.addActionListener(listener -> cardLayout.show(cardPanel, "Users"));
     }
 
     private void addSwitchTicketsAction(){
-        this.switchTickets.addActionListener(listener -> {
-            cardLayout.show(cardPanel, "Tickets");
-        });
+        this.switchTickets.addActionListener(listener -> cardLayout.show(cardPanel, "Tickets"));
     }
 
     private void addSwitchFeedAction(){
-        this.switchFeed.addActionListener(listener -> {
-            cardLayout.show(cardPanel, "feed");
-        });
+        this.switchFeed.addActionListener(listener -> cardLayout.show(cardPanel, "feed"));
     }
 
     private void addUserAction(){
-        this.addUser.addActionListener(listener -> {
-            cardLayout.show(cardPanel, "userform");
+        this.addUser.addActionListener(listener -> cardLayout.show(cardPanel, "userform"));
+    }
+
+    private void addUserformOkAction(){
+        this.userForm.getOk().addActionListener(listener -> {
+            cardLayout.show(cardPanel, "Users");
+            expenseManager.addUser(new User(userForm.getUsername().getText()));
+            userForm.getUsername().setText("");
         });
     }
 
