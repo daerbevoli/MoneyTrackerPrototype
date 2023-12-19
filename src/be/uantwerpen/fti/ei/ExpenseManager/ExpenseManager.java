@@ -51,6 +51,9 @@ public class ExpenseManager {
     }
 
     public void showUsers(){
+        if (users.isEmpty()){
+            System.out.println("database is empty");
+        }
         users.printDb();
     }
 
