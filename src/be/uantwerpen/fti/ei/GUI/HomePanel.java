@@ -12,16 +12,14 @@ public class HomePanel {
 
     private final CardLayout cardLayout;
     private final JPanel cardPanel;
-    JPanel controlPanel = new JPanel();
+    private final JPanel controlPanel;
     private final UserForm userForm;
-
-    private final JButton addUser;
-
 
     private final JButton switchUsers;
     private final JButton switchTickets;
     private final JButton switchFeed;
 
+    private final JButton addUser;
 
     public HomePanel(ExpenseManager expenseManager) {
         this.expenseManager = expenseManager;
@@ -30,36 +28,39 @@ public class HomePanel {
         cardLayout = new CardLayout();
         cardPanel = new JPanel(cardLayout);
 
+        // Four main panels
         JPanel userPanel = createPanel("Users");
         JPanel ticketsPanel = createPanel("Tickets");
         JPanel feedPanel = createPanel("feed");
-
-
-        userForm = new UserForm();
-        addUser = new JButton("add user");
-        addUser.setBounds(200, 200, 50, 50);
-
-        userPanel.add(addUser);
-        addUserAction();
-        addUserformOkAction();
+        controlPanel = createPanel("");
 
         cardPanel.add(userPanel, "Users");
-        cardPanel.add(userForm, "userform");
         cardPanel.add(ticketsPanel, "Tickets");
         cardPanel.add(feedPanel, "feed");
 
         switchUsers = new JButton("Users");
-        addSwitchUsersAction();
-
         switchTickets = new JButton("Tickets");
-        addSwitchTicketsAction();
-
         switchFeed = new JButton("feed");
+
+        addSwitchUsersAction();
+        addSwitchTicketsAction();
         addSwitchFeedAction();
 
         controlPanel.add(switchUsers);
         controlPanel.add(switchTickets);
         controlPanel.add(switchFeed);
+
+        // Users based panels
+        userForm = new UserForm();
+
+        cardPanel.add(userForm, "userform");
+
+        addUser = new JButton("add user");
+
+        userPanel.add(addUser);
+        addUserAction();
+        addUserformOkAction();
+        addUserformBackAction();
 
     }
 
@@ -89,13 +90,17 @@ public class HomePanel {
         this.switchFeed.addActionListener(listener -> cardLayout.show(cardPanel, "feed"));
     }
 
+
     private void addUserAction(){
         this.addUser.addActionListener(listener -> cardLayout.show(cardPanel, "userform"));
     }
 
+    private void addUserformBackAction(){
+        this.userForm.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Users"));
+    }
+
     private void addUserformOkAction(){
         this.userForm.getOk().addActionListener(listener -> {
-            cardLayout.show(cardPanel, "Users");
             expenseManager.addUser(new User(userForm.getUsername().getText()));
             userForm.getUsername().setText("");
         });

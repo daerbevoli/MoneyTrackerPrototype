@@ -1,32 +1,39 @@
 package be.uantwerpen.fti.ei.GUI;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class UserForm extends JPanel {
 
     private JTextField username;
-    private JButton ok;
+    private JButton okButton;
+    private JButton backButton;
     private JLabel usernameLabel;
 
     public UserForm() {
 
         setLayout(null);
-        username = new JTextField(8);
-        ok = new JButton("ok");
-        usernameLabel = new JLabel("username: ");
-        username.setBounds(200,350, 100, 30);
-        ok.setBounds(200, 380, 100, 30);
-        usernameLabel.setBounds(username.getX()-75, username.getY(), 75, 30);
 
-        this.add(username);
-        this.add(ok);
+        usernameLabel = new JLabel("Username: ");
+        username = new JTextField(8);
+        okButton = new JButton("OK");
+        backButton = new JButton("Back");
+
+        // yet to make dimensions constant and consistent
+        usernameLabel.setBounds(125, 200, 75, 30);
+        username.setBounds(200,200, 100, 30);
+        okButton.setBounds(200, 230, 100, 30);
+        backButton.setBounds(10, 10, 100, 30);
+
         this.add(usernameLabel);
+        this.add(username);
+        this.add(okButton);
+        this.add(backButton);
+
 
     }
 
     public JButton getOk() {
-        return ok;
+        return okButton;
     }
 
     public JTextField getUsername() {
@@ -38,7 +45,7 @@ public class UserForm extends JPanel {
     }
 
     public void setOk(JButton ok) {
-        this.ok = ok;
+        this.okButton = ok;
     }
 
     public JLabel getUsernameLabel() {
@@ -47,5 +54,9 @@ public class UserForm extends JPanel {
 
     public void setUsernameLabel(JLabel usernameLabel) {
         this.usernameLabel = usernameLabel;
+    }
+
+    public JButton getBackButton() {
+        return backButton;
     }
 }
