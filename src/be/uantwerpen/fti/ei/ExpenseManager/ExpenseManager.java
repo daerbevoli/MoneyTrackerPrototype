@@ -107,4 +107,8 @@ public class ExpenseManager {
             System.out.println(user2Name + " owes " + user1Name + ": " + Math.abs(amount));
         }
     }
+
+    public Database getUsers() {
+        return users;
+    }
 }
