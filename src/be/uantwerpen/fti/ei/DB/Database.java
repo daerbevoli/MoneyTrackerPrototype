@@ -5,6 +5,8 @@ import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.SubjectObservers.Subject;
 import be.uantwerpen.fti.ei.User;
 
+import java.util.List;
+
 public abstract class Database implements Subject {
     // used by user db
     public abstract void addUser(User user);
@@ -20,6 +22,8 @@ public abstract class Database implements Subject {
 
     // check whether the database is empty
     public abstract boolean isEmpty();
+
+    public abstract List<User> getData();
 
     // Observer design pattern
     public abstract void register(Observer o);

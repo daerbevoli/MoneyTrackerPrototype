@@ -60,6 +60,11 @@ public class ExpenseDB extends Database{
         return db.isEmpty();
     }
 
+    @Override
+    public List<User> getData() {
+        return null;
+    }
+
     // Observer design pattern
     @Override
     public void register(Observer o) {
