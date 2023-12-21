@@ -3,7 +3,6 @@ package be.uantwerpen.fti.ei.GUI;
 import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.List;
 
 public class UserDisplayPanel extends JPanel {
@@ -25,6 +24,7 @@ public class UserDisplayPanel extends JPanel {
 
     }
 
+    // Yet to add a label when users is empty
     public void displayUsers(){
         for (int i = 0; i < users.size(); i++) {
             String userLabel = "User " + (i + 1) + ": " + users.get(i).getName();
