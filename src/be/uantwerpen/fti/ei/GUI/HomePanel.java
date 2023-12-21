@@ -11,18 +11,21 @@ public class HomePanel {
     private final ExpenseManager expenseManager;
 
     private final CardLayout cardLayout;
+
     private final JPanel cardPanel;
     private final JPanel controlPanel;
-    private final UserForm userForm;
 
     private final JButton switchUsers;
     private final JButton switchTickets;
     private final JButton switchFeed;
 
     private final JButton addUser;
+    private final UserForm userForm;
     private final JButton showUsers;
-
     private final UserDisplayPanel userDisplayPanel;
+
+    private JButton addExpense;
+    private ExpenseForm expenseForm;
 
     public HomePanel(ExpenseManager expenseManager) {
         this.expenseManager = expenseManager;
@@ -57,11 +60,12 @@ public class HomePanel {
         // Users based panels
 
         // add a user
+        addUser = new JButton("add user");
+        userPanel.add(addUser);
         userForm = new UserForm();
         cardPanel.add(userForm, "userform");
-        addUser = new JButton("add user");
 
-        userPanel.add(addUser);
+
         addUserAction();
         addUserformOkAction();
         addUserformBackAction();
@@ -69,11 +73,27 @@ public class HomePanel {
         // display the users
         userDisplayPanel = new UserDisplayPanel(expenseManager.getUsers().getData());
         cardPanel.add(userDisplayPanel, "displayUsers");
-
         showUsers = new JButton("Show users");
         userPanel.add(showUsers);
+
         showUsersActions();
         addUserActionBackButton();
+
+        /*
+        * Things to add to users panel
+        *
+        * function to check whether a user with a given name is already in the database
+        * remove user functionality, only if debt free
+        * */
+
+        addExpense = new JButton("Add expense");
+        ticketsPanel.add(addExpense);
+        expenseForm = new ExpenseForm(expenseManager);
+        cardPanel.add(expenseForm, "expenseform");
+
+        addExpenseAction();
+
+        addExpenseActionBackButton();
 
 
     }
@@ -127,6 +147,15 @@ public class HomePanel {
 
     private void addUserActionBackButton(){
         this.userDisplayPanel.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Users"));
+    }
+
+    private void addExpenseAction(){
+        this.addExpense.addActionListener(listener -> cardLayout.show(cardPanel, "expenseform"));
+        expenseForm.fillPaidByBox();
+    }
+
+    private void addExpenseActionBackButton(){
+        this.expenseForm.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Tickets"));
     }
 
 }
