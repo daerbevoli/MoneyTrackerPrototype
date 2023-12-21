@@ -20,6 +20,9 @@ public class HomePanel {
     private final JButton switchFeed;
 
     private final JButton addUser;
+    private final JButton showUsers;
+
+    private final UserDisplayPanel userDisplayPanel;
 
     public HomePanel(ExpenseManager expenseManager) {
         this.expenseManager = expenseManager;
@@ -62,6 +65,15 @@ public class HomePanel {
         addUserformOkAction();
         addUserformBackAction();
 
+        userDisplayPanel = new UserDisplayPanel(expenseManager.getUsers().getData());
+        cardPanel.add(userDisplayPanel, "displayUsers");
+
+        showUsers = new JButton("Show users");
+        userPanel.add(showUsers);
+        showUsersActions();
+        addUserActionBackButton();
+
+
     }
 
     public JPanel getCardPanel() {
@@ -103,7 +115,16 @@ public class HomePanel {
         this.userForm.getOk().addActionListener(listener -> {
             expenseManager.addUser(new User(userForm.getUsername().getText()));
             userForm.getUsername().setText("");
+            userDisplayPanel.displayUsers();
         });
+    }
+
+    private void showUsersActions(){
+        this.showUsers.addActionListener(listener -> cardLayout.show(cardPanel, "displayUsers"));
+    }
+
+    private void addUserActionBackButton(){
+        this.userDisplayPanel.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Users"));
     }
 
 }
