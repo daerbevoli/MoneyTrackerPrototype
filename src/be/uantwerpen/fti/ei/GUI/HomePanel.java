@@ -41,6 +41,7 @@ public class HomePanel {
         cardPanel.add(ticketsPanel, "Tickets");
         cardPanel.add(feedPanel, "feed");
 
+        // three main buttons
         switchUsers = new JButton("Users");
         switchTickets = new JButton("Tickets");
         switchFeed = new JButton("feed");
@@ -54,10 +55,10 @@ public class HomePanel {
         controlPanel.add(switchFeed);
 
         // Users based panels
+
+        // add a user
         userForm = new UserForm();
-
         cardPanel.add(userForm, "userform");
-
         addUser = new JButton("add user");
 
         userPanel.add(addUser);
@@ -65,6 +66,7 @@ public class HomePanel {
         addUserformOkAction();
         addUserformBackAction();
 
+        // display the users
         userDisplayPanel = new UserDisplayPanel(expenseManager.getUsers().getData());
         cardPanel.add(userDisplayPanel, "displayUsers");
 

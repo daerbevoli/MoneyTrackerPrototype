@@ -19,7 +19,6 @@ public class UserDisplayPanel extends JPanel {
         backButton.setBounds(10, 10, 100, 30);
         add(backButton);
 
-
         displayUsers();
 
     }

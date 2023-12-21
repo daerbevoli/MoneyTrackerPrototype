@@ -4,16 +4,15 @@ import javax.swing.*;
 
 public class UserForm extends JPanel {
 
-    private JTextField username;
-    private JButton okButton;
-    private JButton backButton;
-    private JLabel usernameLabel;
+    private final JTextField username;
+    private final JButton okButton;
+    private final JButton backButton;
 
     public UserForm() {
 
         setLayout(null);
 
-        usernameLabel = new JLabel("Username: ");
+        JLabel usernameLabel = new JLabel("Username: ");
         username = new JTextField(8);
         okButton = new JButton("OK");
         backButton = new JButton("Back");
@@ -29,7 +28,6 @@ public class UserForm extends JPanel {
         this.add(okButton);
         this.add(backButton);
 
-
     }
 
     public JButton getOk() {
@@ -38,22 +36,6 @@ public class UserForm extends JPanel {
 
     public JTextField getUsername() {
         return username;
-    }
-
-    public void setUsername(JTextField username) {
-        this.username = username;
-    }
-
-    public void setOk(JButton ok) {
-        this.okButton = ok;
-    }
-
-    public JLabel getUsernameLabel() {
-        return usernameLabel;
-    }
-
-    public void setUsernameLabel(JLabel usernameLabel) {
-        this.usernameLabel = usernameLabel;
     }
 
     public JButton getBackButton() {
