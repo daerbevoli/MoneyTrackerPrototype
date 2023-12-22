@@ -24,13 +24,17 @@ public class UserDisplayPanel extends JPanel {
 
     // Yet to add a label when users is empty
     public void displayUsers(Graphics g){
-        for (int i = 0; i < users.size(); i++) {
-            String userLabel = "User " + (i + 1) + ": " + users.get(i).getName();
-            g.setFont(new Font("Arial", Font.BOLD, 20));
-            g.drawString("Users: ", 200, 50);
-
+        g.setFont(new Font("Arial", Font.BOLD, 20));
+        g.drawString("Users: ", 200, 50);
+        if (users.isEmpty()){
             g.setFont(new Font("Arial", Font.BOLD, 15));
-            g.drawString(userLabel, 190, 60 + (20 * (i+1)));
+            g.drawString("No users added yet", 190, 100);
+        } else {
+            for (int i = 0; i < users.size(); i++) {
+                String userLabel = "User " + (i + 1) + ": " + users.get(i).getName();
+                g.setFont(new Font("Arial", Font.BOLD, 15));
+                g.drawString(userLabel, 190, 60 + (20 * (i+1)));
+            }
         }
     }
 
