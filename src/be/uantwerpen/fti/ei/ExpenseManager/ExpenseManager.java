@@ -25,6 +25,10 @@ public class ExpenseManager {
         balanceSheet.put(user, new HashMap<>());
     }
 
+    public void removeUser(User user){
+        users.removeUser(user);
+    }
+
     public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
         Expense expense = ExpenseFactory.createExpense(name, expenseType, amount, paidBy, splits);
         expenses.addExpense(expense);
