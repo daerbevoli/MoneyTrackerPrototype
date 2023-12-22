@@ -135,9 +135,26 @@ public class HomePanel {
 
     private void addUserformOkAction(){
         this.userForm.getOk().addActionListener(listener -> {
-            expenseManager.addUser(new User(userForm.getUsername().getText()));
-            userForm.getUsername().setText("");
-            userDisplayPanel.displayUsers();
+            String username = userForm.getUsername().getText();
+            boolean existingUser = false;
+            boolean emptyString = username.isEmpty();
+
+            if (emptyString){
+                JOptionPane.showMessageDialog(userForm, "Username cannot be empty");
+            }
+            for (User user : expenseManager.getUsers().getData()) {
+                existingUser = username.equals(user.getName());
+                if (existingUser) {
+                    JOptionPane.showMessageDialog(userForm, "User already exist");
+                    userForm.getUsername().setText("");
+                }
+            }
+            if (!emptyString && !existingUser) {
+                expenseManager.addUser(new User(userForm.getUsername().getText()));
+                userDisplayPanel.displayUsers();
+                userForm.getUsername().setText("");
+
+            }
         });
     }
 
