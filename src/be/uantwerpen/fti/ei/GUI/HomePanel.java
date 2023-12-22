@@ -5,6 +5,7 @@ import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ListIterator;
 
 public class HomePanel {
 
@@ -19,13 +20,13 @@ public class HomePanel {
     private final JButton switchTickets;
     private final JButton switchFeed;
 
-    private final JButton addUser;
+    private final JButton addRemoveUser;
     private final UserForm userForm;
     private final JButton showUsers;
     private final UserDisplayPanel userDisplayPanel;
 
-    private JButton addExpense;
-    private ExpenseForm expenseForm;
+    private final JButton addExpense;
+    private final ExpenseForm expenseForm;
 
     public HomePanel(ExpenseManager expenseManager) {
         this.expenseManager = expenseManager;
@@ -60,15 +61,17 @@ public class HomePanel {
         // Users based panels
 
         // add a user
-        addUser = new JButton("add user");
-        userPanel.add(addUser);
+        addRemoveUser = new JButton("Add / Remove user");
+        userPanel.add(addRemoveUser);
         userForm = new UserForm();
         cardPanel.add(userForm, "userform");
 
 
-        addUserAction();
-        addUserformOkAction();
-        addUserformBackAction();
+        addRemoveUserAction();
+        addRemoveUserformAddAction();
+        addRemoveUserformRemoveAction();
+        addRemoveUserformBackAction();
+
 
         // display the users
         userDisplayPanel = new UserDisplayPanel(expenseManager.getUsers().getData());
@@ -82,7 +85,6 @@ public class HomePanel {
         /*
         * Things to add to users panel
         *
-        * function to check whether a user with a given name is already in the database
         * remove user functionality, only if debt free
         * */
 
@@ -125,16 +127,16 @@ public class HomePanel {
     }
 
 
-    private void addUserAction(){
-        this.addUser.addActionListener(listener -> cardLayout.show(cardPanel, "userform"));
+    private void addRemoveUserAction(){
+        this.addRemoveUser.addActionListener(listener -> cardLayout.show(cardPanel, "userform"));
     }
 
-    private void addUserformBackAction(){
+    private void addRemoveUserformBackAction(){
         this.userForm.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Users"));
     }
 
-    private void addUserformOkAction(){
-        this.userForm.getOk().addActionListener(listener -> {
+    private void addRemoveUserformAddAction(){
+        this.userForm.getAddButton().addActionListener(listener -> {
             String username = userForm.getUsername().getText();
             boolean existingUser = false;
             boolean emptyString = username.isEmpty();
@@ -145,16 +147,47 @@ public class HomePanel {
             for (User user : expenseManager.getUsers().getData()) {
                 existingUser = username.equals(user.getName());
                 if (existingUser) {
-                    JOptionPane.showMessageDialog(userForm, "User already exist");
+                    JOptionPane.showMessageDialog(userForm, "User already exist, If new user with same name" +
+                            ", use enumeration");
                     userForm.getUsername().setText("");
                 }
             }
             if (!emptyString && !existingUser) {
                 expenseManager.addUser(new User(userForm.getUsername().getText()));
-                userDisplayPanel.displayUsers();
                 userForm.getUsername().setText("");
 
             }
+            userDisplayPanel.repaint();
+
+
+        });
+    }
+
+    private void addRemoveUserformRemoveAction(){
+        this.userForm.getRemoveButton().addActionListener(listener -> {
+            String username = userForm.getUsername().getText();
+            boolean userFound = false;
+            boolean emptyString = username.isEmpty();
+
+            if (emptyString){
+                JOptionPane.showMessageDialog(userForm, "Username cannot be empty");
+            }
+
+            for (User currentUser : expenseManager.getUsers().getData()) {
+                if (currentUser.getName().equals(username)) {
+                    userFound = true;
+                    expenseManager.removeUser(currentUser);
+                    userForm.getUsername().setText("");
+                    break;
+
+                }
+            }
+
+            if (!userFound && !emptyString) {
+                JOptionPane.showMessageDialog(userForm, "User to remove not found");
+                userForm.getUsername().setText("");
+            }
+            userDisplayPanel.repaint();
         });
     }
 
