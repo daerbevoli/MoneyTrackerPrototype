@@ -5,7 +5,6 @@ import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ListIterator;
 
 public class HomePanel {
 
@@ -82,21 +81,13 @@ public class HomePanel {
         showUsersActions();
         addUserActionBackButton();
 
-        /*
-        * Things to add to users panel
-        *
-        * remove user functionality, only if debt free
-        * */
-
         addExpense = new JButton("Add expense");
         ticketsPanel.add(addExpense);
         expenseForm = new ExpenseForm(expenseManager);
         cardPanel.add(expenseForm, "expenseform");
 
         addExpenseAction();
-
         addExpenseActionBackButton();
-
 
     }
 
@@ -126,7 +117,6 @@ public class HomePanel {
         this.switchFeed.addActionListener(listener -> cardLayout.show(cardPanel, "feed"));
     }
 
-
     private void addRemoveUserAction(){
         this.addRemoveUser.addActionListener(listener -> cardLayout.show(cardPanel, "userform"));
     }
@@ -153,13 +143,13 @@ public class HomePanel {
                 }
             }
             if (!emptyString && !existingUser) {
-                expenseManager.addUser(new User(userForm.getUsername().getText()));
+                expenseManager.addUser(new User(username));
                 userForm.getUsername().setText("");
+                expenseForm.addToPaidByBox(username);
+                expenseForm.addUserToSplits(username);
 
             }
             userDisplayPanel.repaint();
-
-
         });
     }
 
@@ -178,13 +168,14 @@ public class HomePanel {
                     userFound = true;
                     expenseManager.removeUser(currentUser);
                     userForm.getUsername().setText("");
+                    expenseForm.removeFromPaidByBox(username);
+                    expenseForm.removeUserFromSplits(username);
                     break;
-
                 }
             }
 
             if (!userFound && !emptyString) {
-                JOptionPane.showMessageDialog(userForm, "User to remove not found");
+                JOptionPane.showMessageDialog(userForm, "User to remove not found or database is empty");
                 userForm.getUsername().setText("");
             }
             userDisplayPanel.repaint();
@@ -201,7 +192,6 @@ public class HomePanel {
 
     private void addExpenseAction(){
         this.addExpense.addActionListener(listener -> cardLayout.show(cardPanel, "expenseform"));
-        expenseForm.fillPaidByBox();
     }
 
     private void addExpenseActionBackButton(){
