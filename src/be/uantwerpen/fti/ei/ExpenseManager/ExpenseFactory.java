@@ -24,6 +24,7 @@ public class ExpenseFactory {
                 for (Split split : splits) {
                     split.setAmount(splitAmount);
                 }
+
                 // rounding may lead to discrepancy in total split amount
                 // the line below adjust the amount of the first split to account for it
                 splits.get(0).setAmount(splitAmount + (amount - splitAmount*totalSplits));
