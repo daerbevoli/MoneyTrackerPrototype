@@ -55,6 +55,11 @@ public class UserDB extends Database {
         db.add(user);
     }
 
+    @Override
+    public void removeUser(User user) {
+        db.removeIf(element -> element.equals(user)); // safely remove item from list
+    }
+
     // observer design pattern
     @Override
     public void register(Observer o) {

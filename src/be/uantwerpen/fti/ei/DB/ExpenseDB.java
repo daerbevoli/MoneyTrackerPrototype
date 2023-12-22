@@ -38,6 +38,11 @@ public class ExpenseDB extends Database{
 
     }
 
+    @Override
+    public void removeUser(User user) {
+
+    }
+
     // yet to add splits
     @Override
     public void printDb() {

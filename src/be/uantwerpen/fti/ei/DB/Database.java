@@ -11,6 +11,8 @@ public abstract class Database implements Subject {
     // used by user db
     public abstract void addUser(User user);
 
+    public abstract void removeUser(User user);
+
     // used by expense db
     public abstract void addExpense(Expense expense);
 
@@ -23,6 +25,7 @@ public abstract class Database implements Subject {
     // check whether the database is empty
     public abstract boolean isEmpty();
 
+    // return the database list of users
     public abstract List<User> getData();
 
     // Observer design pattern
