@@ -32,20 +32,19 @@ public class ExpenseManager {
     public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
         Expense expense = ExpenseFactory.createExpense(name, expenseType, amount, paidBy, splits);
         expenses.addExpense(expense);
+
         for (Split split : expense.getSplits()) {
             User paidTo = split.getUser();
-            Map<User, Double> balances = balanceSheet.get(paidBy);
-            if (!balances.containsKey(paidTo)) {
-                balances.put(paidTo, 0.0);
-            }
-            balances.put(paidTo, balances.get(paidTo) + split.getAmount());
-
-            balances = balanceSheet.get(paidTo);
-            if (!balances.containsKey(paidBy)) {
-                balances.put(paidBy, 0.0);
-            }
-            balances.put(paidBy, balances.get(paidBy) - split.getAmount());
+            updateBalances(paidBy, paidTo, split.getAmount());
         }
+    }
+
+    private void updateBalances(User paidBy, User paidTo, double amount) {
+        Map<User, Double> balances = balanceSheet.computeIfAbsent(paidBy, k -> new HashMap<>());
+        balances.put(paidTo, balances.getOrDefault(paidTo, 0.0) + amount);
+
+        balances = balanceSheet.computeIfAbsent(paidTo, k -> new HashMap<>());
+        balances.put(paidBy, balances.getOrDefault(paidBy, 0.0) - amount);
     }
 
     // yet to add a debt settling algo that minimizes the total mount of transactions
