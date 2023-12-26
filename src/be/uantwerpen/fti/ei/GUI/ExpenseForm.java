@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseForm extends JPanel {
-    //     public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
-    // textfield name of expense (dinner, lunch, ..)
-    // textfield amount
+    // public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits)
+    // JTextfield name of expense (dinner, lunch, ..)
+    // JTextfield amount
     // JComboBox paidBy with names of all users
     // JComboBox expenseType
     // JCheckBox splits
@@ -109,8 +109,8 @@ public class ExpenseForm extends JPanel {
 
 
     private void fillExpenseTypeBox(){
-        expenseTypeBox.addItem("EXACT");
         expenseTypeBox.addItem("EQUAL");
+        expenseTypeBox.addItem("EXACT");
     }
 
     public JButton getBackButton() {
@@ -134,4 +134,5 @@ public class ExpenseForm extends JPanel {
             expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
         });
     }
+
 }
