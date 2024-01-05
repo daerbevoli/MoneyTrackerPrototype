@@ -123,20 +123,26 @@ public class ExpenseForm extends JPanel {
     // incomplete
     public void addExpenseButtonAction(){
         this.addExpenseButton.addActionListener(listener -> {
-            String expense = expenseField.getText();
-            String expenseType = String.valueOf(expenseTypeBox.getSelectedItem());
-            int amount = Integer.parseInt(amountField.getText());
-            User paidBy = new User(String.valueOf(paidbyBox.getSelectedItem()));
-            List<Split> splits = new ArrayList<>();
-            for (int i = 0; i < listModel.size(); i++){
-                if (expenseType.equals("EQUAL")){
-                    Split split = new EqualSplit(listModel.get(i));
-                    splits.add(split);
+            try {
+                String expense = expenseField.getText();
+                String expenseType = String.valueOf(expenseTypeBox.getSelectedItem());
+                int amount = Integer.parseInt(amountField.getText());
+                User paidBy = new User(String.valueOf(paidbyBox.getSelectedItem()));
+                List<Split> splits = new ArrayList<>();
+
+                for (int i = 0; i < listModel.size(); i++){
+                    if (expenseType.equals("EQUAL")){
+                        Split split = new EqualSplit(listModel.get(i));
+                        splits.add(split);
+                    }
                 }
+                expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
+                expenseManager.showBalances();
+                expenseManager.showExpenses();
+            } catch (Exception e){
+                JOptionPane.showMessageDialog(this, "Invalid input, please check that you filled " +
+                        "out everything correctly");
             }
-            expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
-            expenseManager.showBalances();
-            expenseManager.showExpenses();
         });
     }
 
