@@ -34,10 +34,9 @@ public class ExpenseDB extends Database<Expense> {
 
     @Override
     public void removeEntry(Expense entry) {
-
+        //
     }
 
-    // yet to add splits
     @Override
     public void printDb() {
         for (Expense expense : db){
@@ -61,7 +60,7 @@ public class ExpenseDB extends Database<Expense> {
 
     @Override
     public List<Expense> getData() {
-        return null;
+        return db;
     }
 
     // Observer design pattern

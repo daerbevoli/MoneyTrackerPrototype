@@ -49,16 +49,9 @@ public class UserDB extends Database<User> {
         return db.isEmpty();
     }
 
+    @Override
     public List<User> getData() {
         return db;
-    }
-
-    public void addUser(User user) {
-        db.add(user);
-    }
-
-    public void removeUser(User user) {
-        db.removeIf(element -> element.equals(user)); // safely remove item from list
     }
 
     // observer design pattern
