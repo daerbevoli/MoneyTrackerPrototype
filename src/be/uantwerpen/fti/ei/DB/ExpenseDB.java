@@ -7,7 +7,7 @@ import be.uantwerpen.fti.ei.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpenseDB extends Database{
+public class ExpenseDB extends Database<Expense> {
 
     private static ExpenseDB firstInstance = null;
 
@@ -28,18 +28,12 @@ public class ExpenseDB extends Database{
     }
 
     @Override
-    public void addExpense(Expense expense) {
+    public void addEntry(Expense expense) {
         db.add(expense);
     }
 
-    // empty method, see database class
     @Override
-    public void addUser(User user) {
-
-    }
-
-    @Override
-    public void removeUser(User user) {
+    public void removeEntry(Expense entry) {
 
     }
 
@@ -66,7 +60,7 @@ public class ExpenseDB extends Database{
     }
 
     @Override
-    public List<User> getData() {
+    public List<Expense> getData() {
         return null;
     }
 

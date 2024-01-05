@@ -7,17 +7,11 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.List;
 
-public abstract class Database implements Subject {
-    // used by user db
-    public abstract void addUser(User user);
+public abstract class Database<T> implements Subject {
 
-    public abstract void removeUser(User user);
+    public abstract void addEntry(T entry);
 
-    // used by expense db
-    public abstract void addExpense(Expense expense);
-
-    // should be a way to implement this to avoid empty methods
-    //public abstract void addEntry(Object obj);
+    public abstract void removeEntry(T entry);
 
     // used by both dbs to print the element from the db
     public abstract void printDb();
@@ -25,8 +19,7 @@ public abstract class Database implements Subject {
     // check whether the database is empty
     public abstract boolean isEmpty();
 
-    // return the database list of users
-    public abstract List<User> getData();
+    public abstract List<T> getData();
 
     // Observer design pattern
     public abstract void register(Observer o);

@@ -6,7 +6,7 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.*;
 
-public class UserDB extends Database {
+public class UserDB extends Database<User> {
 
     private static UserDB firstInstance = null;
 
@@ -28,6 +28,16 @@ public class UserDB extends Database {
 
 
     @Override
+    public void addEntry(User user) {
+        db.add(user);
+    }
+
+    @Override
+    public void removeEntry(User user) {
+        db.removeIf(element -> element.equals(user)); // safely remove item from list
+    }
+
+    @Override
     public void printDb(){
         for (User user : db){
             System.out.println(user.getName());
@@ -39,23 +49,14 @@ public class UserDB extends Database {
         return db.isEmpty();
     }
 
-    @Override
     public List<User> getData() {
         return db;
     }
 
-    // empty method, see database class
-    @Override
-    public void addExpense(Expense expense) {
-
-    }
-
-    @Override
     public void addUser(User user) {
         db.add(user);
     }
 
-    @Override
     public void removeUser(User user) {
         db.removeIf(element -> element.equals(user)); // safely remove item from list
     }

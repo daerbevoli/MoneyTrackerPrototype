@@ -11,27 +11,28 @@ import java.util.*;
 // controller in the MVC design pattern
 public class ExpenseManager {
 
-    private final Database expenses, users;
+    private final Database<Expense> expenses;
+    private final Database<User> users;
     private final Map<User, Map<User, Double>> balanceSheet;
 
-    public ExpenseManager(Database users, Database expenses) {
+    public ExpenseManager(Database<User> users, Database<Expense> expenses) {
         this.users = users;
         this.expenses = expenses;
         balanceSheet = new HashMap<>();
     }
 
     public void addUser(User user){
-        users.addUser(user);
+        users.addEntry(user);
         balanceSheet.put(user, new HashMap<>());
     }
 
     public void removeUser(User user){
-        users.removeUser(user);
+        users.removeEntry(user);
     }
 
     public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
         Expense expense = ExpenseFactory.createExpense(name, expenseType, amount, paidBy, splits);
-        expenses.addExpense(expense);
+        expenses.addEntry(expense);
 
         for (Split split : expense.getSplits()) {
             User paidTo = split.getUser();
@@ -111,7 +112,7 @@ public class ExpenseManager {
         }
     }
 
-    public Database getUsers() {
+    public Database<User> getUsers() {
         return users;
     }
 }
