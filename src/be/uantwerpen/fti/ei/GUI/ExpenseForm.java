@@ -23,7 +23,9 @@ public class ExpenseForm extends JPanel {
     private final JTextField amountField;
     private final JComboBox<String> paidbyBox;
     private final JComboBox<String> expenseTypeBox;
-    private final DefaultListModel<String> listModel;
+    private final DefaultListModel<User> listModel;
+    private final DefaultListModel<String> nameModel = new DefaultListModel<>();
+
 
     private final JButton addExpenseButton;
     private final JButton backButton;
@@ -33,11 +35,11 @@ public class ExpenseForm extends JPanel {
 
         setLayout(null);
 
-        JLabel expenseLabel = makeNameLabel("Name: ", 100,100, 100, 50); // expense name
-        JLabel amountLabel = makeNameLabel("Amount: ", 100, 150, 100, 50); // amount
-        JLabel paidByLabel = makeNameLabel("Paid by: ", 100, 200, 100, 50); // who paid
-        JLabel expenseTypeLabel = makeNameLabel("Expense type: ", 100, 250, 100, 50); // how its split
-        JLabel splits = makeNameLabel("Splits: ", 100, 300, 100, 50);
+        JLabel expenseLabel = makeNameLabel("Name: ", 100); // expense name
+        JLabel amountLabel = makeNameLabel("Amount: ", 150); // amount
+        JLabel paidByLabel = makeNameLabel("Paid by: ", 200); // who paid
+        JLabel expenseTypeLabel = makeNameLabel("Expense type: ", 250); // how its split
+        JLabel splits = makeNameLabel("Splits: ", 300);
 
         add(expenseLabel);
         add(amountLabel);
@@ -61,8 +63,9 @@ public class ExpenseForm extends JPanel {
 
         fillExpenseTypeBox();
         listModel = new DefaultListModel<>();
+
         // Create a JList with the DefaultListModel
-        JList<String> peopleList = new JList<>(listModel);
+        JList<String> peopleList = new JList<>(nameModel);
         peopleList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
         // Add the JList to a JScrollPane
@@ -82,29 +85,29 @@ public class ExpenseForm extends JPanel {
 
     }
 
-    public void addUserToSplits(String user){
+    public void addUserToSplits(User user){
         listModel.addElement(user);
-
+        nameModel.addElement(user.getName());
     }
 
-    public void removeUserFromSplits(String user){
+    public void removeUserFromSplits(User user){
         listModel.removeElement(user);
-
+        nameModel.removeElement(user.getName());
     }
 
-    private JLabel makeNameLabel(String name, int x, int y, int width, int height){
+    private JLabel makeNameLabel(String name, int y){
         JLabel label = new JLabel(name);
-        label.setBounds(x, y, width, height);
+        label.setBounds(100, y, 100, 50);
         return label;
     }
 
     // does not work properly yet
-    public void addToPaidByBox(String name){
-        paidbyBox.addItem(name);
+    public void addToPaidByBox(User user){
+        paidbyBox.addItem(user.getName());
     }
 
-    public void removeFromPaidByBox(String name){
-        paidbyBox.removeItem(name);
+    public void removeFromPaidByBox(User user){
+        paidbyBox.removeItem(user.getName());
     }
 
 
@@ -127,11 +130,13 @@ public class ExpenseForm extends JPanel {
             List<Split> splits = new ArrayList<>();
             for (int i = 0; i < listModel.size(); i++){
                 if (expenseType.equals("EQUAL")){
-                    Split split = new EqualSplit(new User(listModel.get(i)));
+                    Split split = new EqualSplit(listModel.get(i));
                     splits.add(split);
                 }
             }
             expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
+            expenseManager.showBalances();
+            expenseManager.showExpenses();
         });
     }
 

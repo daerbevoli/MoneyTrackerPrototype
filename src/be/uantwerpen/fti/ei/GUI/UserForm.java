@@ -1,15 +1,21 @@
 package be.uantwerpen.fti.ei.GUI;
 
+import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
+import be.uantwerpen.fti.ei.User;
+
 import javax.swing.*;
 
 public class UserForm extends JPanel {
+
+    private final ExpenseManager expenseManager;
 
     private final JTextField username;
     private final JButton addButton;
     private final JButton removeButton;
     private final JButton backButton;
 
-    public UserForm() {
+    public UserForm(ExpenseManager expenseManager) {
+        this.expenseManager = expenseManager;
 
         setLayout(null);
 
@@ -32,21 +38,66 @@ public class UserForm extends JPanel {
         this.add(removeButton);
         this.add(backButton);
 
+        addButtonAction();
+        removeButtonAction();
+
     }
 
-    public JButton getAddButton() {
-        return addButton;
-    }
-
-    public JButton getRemoveButton() {
-        return removeButton;
-    }
-
-    public JTextField getUsername() {
-        return username;
-    }
 
     public JButton getBackButton() {
         return backButton;
     }
+
+    public void addButtonAction(){
+        this.addButton.addActionListener(listener -> {
+            String username = this.username.getText();
+            boolean existingUser = false;
+            boolean emptyString = username.isEmpty();
+
+            if (emptyString){
+                JOptionPane.showMessageDialog(this, "Username cannot be empty");
+            }
+            for (User user : expenseManager.getUsers().getData()) {
+                existingUser = username.equals(user.getName());
+                if (existingUser) {
+                    JOptionPane.showMessageDialog(this, "User already exist, If new user with same name" +
+                            ", use enumeration");
+                    this.username.setText("");
+                }
+            }
+            if (!emptyString && !existingUser) {
+                User user = new User(username);
+                expenseManager.addUser(user);
+                this.username.setText("");
+
+            }
+        });
+    }
+
+    private void removeButtonAction(){
+        this.removeButton.addActionListener(listener -> {
+            String username = this.username.getText();
+            boolean userFound = false;
+            boolean emptyString = username.isEmpty();
+
+            if (emptyString){
+                JOptionPane.showMessageDialog(this, "Username cannot be empty");
+            }
+
+            for (User currentUser : expenseManager.getUsers().getData()) {
+                if (currentUser.getName().equals(username)) {
+                    userFound = true;
+                    expenseManager.removeUser(currentUser);
+                    this.username.setText("");
+                    break;
+                }
+            }
+
+            if (!userFound && !emptyString) {
+                JOptionPane.showMessageDialog(this, "User to remove not found or database is empty");
+                this.username.setText("");
+            }
+        });
+    }
+
 }
