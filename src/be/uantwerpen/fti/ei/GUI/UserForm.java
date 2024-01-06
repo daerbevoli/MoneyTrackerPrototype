@@ -27,7 +27,7 @@ public class UserForm extends JPanel {
 
         // yet to make dimensions constant and consistent
         usernameLabel.setBounds(125, 200, 75, 30);
-        username.setBounds(200,200, 100, 30);
+        username.setBounds(200, 200, 100, 30);
         addButton.setBounds(200, 230, 100, 30);
         removeButton.setBounds(200, 260, 100, 30);
         backButton.setBounds(10, 10, 100, 30);
@@ -48,13 +48,13 @@ public class UserForm extends JPanel {
         return backButton;
     }
 
-    public void addButtonAction(){
+    public void addButtonAction() {
         this.addButton.addActionListener(listener -> {
             String username = this.username.getText();
             boolean existingUser = false;
             boolean emptyString = username.isEmpty();
 
-            if (emptyString){
+            if (emptyString) {
                 JOptionPane.showMessageDialog(this, "Username cannot be empty");
             }
             for (User user : expenseManager.getUsers().getData()) {
@@ -74,13 +74,13 @@ public class UserForm extends JPanel {
         });
     }
 
-    private void removeButtonAction(){
+    private void removeButtonAction() {
         this.removeButton.addActionListener(listener -> {
             String username = this.username.getText();
             boolean userFound = false;
             boolean emptyString = username.isEmpty();
 
-            if (emptyString){
+            if (emptyString) {
                 JOptionPane.showMessageDialog(this, "Username cannot be empty");
             }
 
@@ -99,5 +99,4 @@ public class UserForm extends JPanel {
             }
         });
     }
-
 }

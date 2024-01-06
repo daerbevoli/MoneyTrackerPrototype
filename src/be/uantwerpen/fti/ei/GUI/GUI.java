@@ -8,8 +8,8 @@ import java.awt.*;
 // GUI class , yet to be implemented
 public class GUI extends JFrame {
 
-    private ExpenseManager expenseManager;
-    private HomePanel homePanel;
+    private final ExpenseManager expenseManager;
+    private final HomePanel homePanel;
 
     public GUI(ExpenseManager expenseManager){
         this.expenseManager = expenseManager;
@@ -23,12 +23,9 @@ public class GUI extends JFrame {
         setLocationRelativeTo(null);
         setVisible(true);
 
-
-
-
-
-
     }
 
-
+    public HomePanel getHomePanel() {
+        return homePanel;
+    }
 }

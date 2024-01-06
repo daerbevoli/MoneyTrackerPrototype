@@ -137,8 +137,6 @@ public class ExpenseForm extends JPanel {
                     }
                 }
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
-                expenseManager.showBalances();
-                expenseManager.showExpenses();
             } catch (Exception e){
                 JOptionPane.showMessageDialog(this, "Invalid input, please check that you filled " +
                         "out everything correctly");

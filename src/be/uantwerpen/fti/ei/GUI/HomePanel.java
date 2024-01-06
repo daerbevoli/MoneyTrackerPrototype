@@ -1,11 +1,11 @@
 package be.uantwerpen.fti.ei.GUI;
 
+import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
 import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.List;
 
 public class HomePanel {
 
@@ -18,6 +18,7 @@ public class HomePanel {
 
     private final JButton switchUsers;
     private final JButton switchTickets;
+    private final JButton switchDebts;
 
     private final JButton addRemoveUser;
     private final UserForm userForm;
@@ -26,6 +27,9 @@ public class HomePanel {
 
     private final JButton addExpense;
     private final ExpenseForm expenseForm;
+
+    private final JButton computeDebts;
+    private final DebtsPanel computeDebtsPanel;
 
     public HomePanel(ExpenseManager expenseManager) {
         this.expenseManager = expenseManager;
@@ -37,20 +41,25 @@ public class HomePanel {
         // Four main panels
         JPanel userPanel = createPanel("Users");
         JPanel ticketsPanel = createPanel("Tickets");
+        JPanel debtsPanel = createPanel("Debts");
         controlPanel = createPanel("");
 
         cardPanel.add(userPanel, "Users");
         cardPanel.add(ticketsPanel, "Tickets");
+        cardPanel.add(debtsPanel, "Debts");
 
         // two main buttons
         switchUsers = new JButton("Users");
         switchTickets = new JButton("Tickets");
+        switchDebts = new JButton("Debts");
 
         addSwitchUsersAction();
         addSwitchTicketsAction();
+        addSwitchDebtsAction();
 
         controlPanel.add(switchUsers);
         controlPanel.add(switchTickets);
+        controlPanel.add(switchDebts);
 
         // Users based panels
 
@@ -82,6 +91,17 @@ public class HomePanel {
         addExpenseAction();
         addExpenseActionBackButton();
 
+        // compute debts
+        computeDebts = new JButton("Compute debts");
+        debtsPanel.add(computeDebts);
+        computeDebtsPanel = new DebtsPanel(expenseManager);
+        cardPanel.add(computeDebtsPanel, "debtsPanel");
+
+        computeDebtsAction();
+        computeDebtsActionbackButton();
+
+
+
     }
 
     public JPanel getCardPanel() {
@@ -104,7 +124,10 @@ public class HomePanel {
 
     private void addSwitchTicketsAction(){
         this.switchTickets.addActionListener(listener -> cardLayout.show(cardPanel, "Tickets"));
-        expenseManager.showUsers();
+    }
+
+    private void addSwitchDebtsAction(){
+        this.switchDebts.addActionListener(listener -> cardLayout.show(cardPanel, "Debts"));
     }
 
     private void addRemoveUserAction(){
@@ -132,6 +155,15 @@ public class HomePanel {
     private void addExpenseActionBackButton(){
         this.expenseForm.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Tickets"));
 
+    }
+
+    private void computeDebtsAction(){
+        this.computeDebts.addActionListener(listener -> cardLayout.show(cardPanel, "debtsPanel"));
+        computeDebtsPanel.repaint();
+    }
+
+    private void computeDebtsActionbackButton(){
+        this.computeDebtsPanel.getBackButton().addActionListener(listener -> cardLayout.show(cardPanel, "Debts"));
     }
 
 }

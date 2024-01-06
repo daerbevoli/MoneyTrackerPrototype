@@ -14,6 +14,7 @@ public class ExpenseManager {
     private final Database<Expense> expenses;
     private final Database<User> users;
     private final Map<User, Map<User, Double>> balanceSheet;
+    private Map<User, Double> debtMap;
 
     public ExpenseManager(Database<User> users, Database<Expense> expenses) {
         this.users = users;
@@ -50,71 +51,62 @@ public class ExpenseManager {
         balances.put(paidBy, balances.getOrDefault(paidBy, 0.0) - amount);
     }
 
-    // yet to add a debt settling algo that minimizes the total mount of transactions
 
-    public void showExpenses(){
-        expenses.printDb();
-    }
+    public List<String> settleDebt() {
+        debtMap = new HashMap<>();
+        List<String> debtList = new ArrayList<>();
 
-    public void showUsers(){
-        if (users.isEmpty()){
-            System.out.println("database is empty");
+        // Calculate total debt for each user
+        for (Map.Entry<User, Map<User, Double>> balance : balanceSheet.entrySet()) {
+            double totAmount = 0;
+            for (Map.Entry<User, Double> bal : balance.getValue().entrySet()) {
+                totAmount += bal.getValue();
+            }
+            debtMap.put(balance.getKey(), totAmount);
         }
-        users.printDb();
-    }
 
-    public void showBalance(User user) {
-        boolean isEmpty = true;
-        for (Map.Entry<User, Double> userBalance : balanceSheet.get(user).entrySet()) {
-            if (userBalance.getValue() != 0) {
-                isEmpty = false;
-                printBalance(user, userBalance.getKey(), userBalance.getValue());
+        // Identify and settle debts for each debtor
+        for (Map.Entry<User, Double> entry : debtMap.entrySet()) {
+            User debtor = entry.getKey();
+            double debtorDebt = entry.getValue();
+
+            if (debtorDebt < 0) {
+                debtList.addAll(settleDebts(debtor, debtorDebt));
             }
         }
-
-        if (isEmpty) {
-            System.out.println("No balances");
-        }
+        return debtList;
     }
 
-    public void showBalances() {
-        boolean isEmpty = true;
-        for (Map.Entry<User, Map<User, Double>> allBalances : balanceSheet.entrySet()) {
-            for (Map.Entry<User, Double> userBalance : allBalances.getValue().entrySet()) {
-                if (userBalance.getValue() > 0) {
-                    isEmpty = false;
-                    printBalance(allBalances.getKey(), userBalance.getKey(), userBalance.getValue());
+    private List<String> settleDebts(User debtor, double debt) {
+        List<String> debtStr = new ArrayList<>();
+        for (Map.Entry<User, Double> entry : debtMap.entrySet()) {
+            if (entry.getKey().getName().equals(debtor.getName())) {
+                continue;
+            }
+            User creditor = entry.getKey();
+            double creditorAmount = entry.getValue();
+
+            if (creditorAmount > 0) {
+                double settledAmount = Math.min(-debt, creditorAmount);
+
+                // Update balances (Note: You'll need a way to track these changes)
+                debtStr.add(debtor.getName() + " owes " + creditor.getName() + " : " + settledAmount);
+
+                debt += settledAmount;
+
+                if (debt == 0) {
+                    break; // Debtor's debt settled
                 }
             }
         }
-
-        if (isEmpty) {
-            System.out.println("No balances");
-        }
-    }
-
-    /*
-    correct:
-
-    john owes sam: 75.0
-    john owes steve: 200.0
-
-
-    /*public void showBalances(){
-        settleDebts(balanceSheet);
-    }*/
-
-    private void printBalance(User user1, User user2, double amount) {
-        String user1Name = user1.getName();
-        String user2Name = user2.getName();
-        if (amount < 0) {
-            System.out.println(user1Name + " owes " + user2Name + ": " + Math.abs(amount));
-        } else if (amount > 0) {
-            System.out.println(user2Name + " owes " + user1Name + ": " + Math.abs(amount));
-        }
+        return debtStr;
     }
 
     public Database<User> getUsers() {
         return users;
+    }
+
+    public Database<Expense> getExpenses() {
+        return expenses;
     }
 }
