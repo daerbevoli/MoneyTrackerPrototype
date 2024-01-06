@@ -74,7 +74,7 @@ public class HomePanel {
 
 
         // display the users
-        userDisplayPanel = new UserDisplayPanel(expenseManager.getUsers().getData());
+        userDisplayPanel = new UserDisplayPanel(expenseManager);
         cardPanel.add(userDisplayPanel, "displayUsers");
         showUsers = new JButton("Show users");
         userPanel.add(showUsers);
@@ -99,8 +99,6 @@ public class HomePanel {
 
         computeDebtsAction();
         computeDebtsActionbackButton();
-
-
 
     }
 

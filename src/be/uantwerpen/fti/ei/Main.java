@@ -20,7 +20,7 @@ public class Main {
         Database<Expense> dbExpenses = ExpenseDB.getInstance();
         ExpenseManager expenseManager = new ExpenseManager(dbUsers, dbExpenses);
 
-        User sam = new User("sam");
+        /*User sam = new User("sam");
         User john = new User("john");
         User steve = new User("steve");
 
@@ -60,7 +60,7 @@ public class Main {
         splits4.add(new EqualSplit(steve));
         splits4.add(new EqualSplit(joe));
 
-        expenseManager.addExpense("Hiking", "EQUAL", 1000, john, splits4);
+        expenseManager.addExpense("Hiking", "EQUAL", 1000, john, splits4);*/
 
 
        GUI gui = new GUI(expenseManager);

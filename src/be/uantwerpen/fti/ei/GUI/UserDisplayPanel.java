@@ -1,5 +1,6 @@
 package be.uantwerpen.fti.ei.GUI;
 
+import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
 import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
@@ -8,11 +9,13 @@ import java.util.List;
 
 public class UserDisplayPanel extends JPanel {
 
+    private final ExpenseManager expenseManager;
     private final List<User> users;
     private final JButton backButton;
 
-    public UserDisplayPanel(List<User> users){
-        this.users = users;
+    public UserDisplayPanel(ExpenseManager expenseManager){
+        this.expenseManager = expenseManager;
+        this.users = expenseManager.getUsers().getData();
 
         setLayout(null);
 
