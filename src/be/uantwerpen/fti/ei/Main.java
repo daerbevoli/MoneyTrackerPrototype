@@ -12,6 +12,7 @@ import be.uantwerpen.fti.ei.Split.Split;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class Main {
 
@@ -20,7 +21,8 @@ public class Main {
         Database<Expense> dbExpenses = ExpenseDB.getInstance();
         ExpenseManager expenseManager = new ExpenseManager(dbUsers, dbExpenses);
 
-        /*User sam = new User("sam");
+        // the code on the console
+        User sam = new User("sam");
         User john = new User("john");
         User steve = new User("steve");
 
@@ -33,16 +35,12 @@ public class Main {
         splits.add(new EqualSplit(john));
         splits.add(new EqualSplit(steve));
 
-        List<Split> splits2 = new ArrayList<>();
-        splits2.add(new ExactSplit(sam, 125));
-        splits2.add(new ExactSplit(john, 175));
-        splits2.add(new ExactSplit(steve, 100));
-
-
         expenseManager.addExpense("dinner", "EQUAL", 300, sam, splits);
-        expenseManager.addExpense("lunch" , "EXACT", 400, steve, splits2);
 
-
+        List<String> ls = expenseManager.settleDebt();
+        for (String str : ls ){
+            System.out.println(str);
+        }
 
         User joe = new User("joe");
         expenseManager.addUser(joe);
@@ -54,16 +52,15 @@ public class Main {
 
         expenseManager.addExpense("jetski", "EQUAL", 600, joe, splits3);
 
-        List<Split> splits4 = new ArrayList<>();
-        splits4.add(new EqualSplit(sam));
-        splits4.add(new EqualSplit(john));
-        splits4.add(new EqualSplit(steve));
-        splits4.add(new EqualSplit(joe));
+        ls = expenseManager.settleDebt();
+        for (String str : ls ){
+            System.out.println(str);
+        }
+        //
 
-        expenseManager.addExpense("Hiking", "EQUAL", 1000, john, splits4);*/
-
-
-       GUI gui = new GUI(expenseManager);
+        // the GUI
+        // you need to put the code above between comments to run the gui on a clean slate
+       //GUI gui = new GUI(expenseManager);
 
 
 
