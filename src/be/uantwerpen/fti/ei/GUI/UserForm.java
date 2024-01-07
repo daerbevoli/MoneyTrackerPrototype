@@ -8,14 +8,16 @@ import javax.swing.*;
 public class UserForm extends JPanel {
 
     private final ExpenseManager expenseManager;
+    private final ExpenseForm expenseForm;
 
     private final JTextField username;
     private final JButton addButton;
     private final JButton removeButton;
     private final JButton backButton;
 
-    public UserForm(ExpenseManager expenseManager) {
+    public UserForm(ExpenseManager expenseManager, ExpenseForm expenseForm) {
         this.expenseManager = expenseManager;
+        this.expenseForm = expenseForm;
 
         setLayout(null);
 
@@ -49,7 +51,7 @@ public class UserForm extends JPanel {
     }
 
     public void addButtonAction() {
-        this.addButton.addActionListener(listener -> {
+        this.addButton.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
             String username = this.username.getText();
             boolean existingUser = false;
             boolean emptyString = username.isEmpty();
@@ -68,14 +70,16 @@ public class UserForm extends JPanel {
             if (!emptyString && !existingUser) {
                 User user = new User(username);
                 expenseManager.addUser(user);
+                expenseForm.addToPaidByBox(user);
+                expenseForm.addUserToSplits(user);
                 this.username.setText("");
 
             }
-        });
+        }));
     }
 
     private void removeButtonAction() {
-        this.removeButton.addActionListener(listener -> {
+        this.removeButton.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
             String username = this.username.getText();
             boolean userFound = false;
             boolean emptyString = username.isEmpty();
@@ -88,6 +92,8 @@ public class UserForm extends JPanel {
                 if (currentUser.getName().equals(username)) {
                     userFound = true;
                     expenseManager.removeUser(currentUser);
+                    expenseForm.removeFromPaidByBox(currentUser);
+                    expenseForm.removeUserFromSplits(currentUser);
                     this.username.setText("");
                     break;
                 }
@@ -97,6 +103,6 @@ public class UserForm extends JPanel {
                 JOptionPane.showMessageDialog(this, "User to remove not found or database is empty");
                 this.username.setText("");
             }
-        });
+        }));
     }
 }

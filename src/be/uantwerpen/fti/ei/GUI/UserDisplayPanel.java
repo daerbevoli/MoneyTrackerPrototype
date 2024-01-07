@@ -25,7 +25,6 @@ public class UserDisplayPanel extends JPanel {
 
     }
 
-    // Yet to add a label when users is empty
     public void displayUsers(Graphics g){
         g.setFont(new Font("Arial", Font.BOLD, 20));
         g.drawString("Users: ", 200, 50);

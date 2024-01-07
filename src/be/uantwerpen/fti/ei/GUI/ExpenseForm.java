@@ -18,6 +18,7 @@ public class ExpenseForm extends JPanel {
     // JCheckBox splits
 
     private final ExpenseManager expenseManager;
+    private final DebtsPanel debtsPanel;
 
     private final JTextField expenseField;
     private final JTextField amountField;
@@ -30,8 +31,9 @@ public class ExpenseForm extends JPanel {
     private final JButton addExpenseButton;
     private final JButton backButton;
 
-    public ExpenseForm(ExpenseManager expenseManager){
+    public ExpenseForm(ExpenseManager expenseManager, DebtsPanel debtsPanel){
         this.expenseManager = expenseManager;
+        this.debtsPanel = debtsPanel;
 
         setLayout(null);
 
@@ -122,7 +124,7 @@ public class ExpenseForm extends JPanel {
 
     // incomplete
     public void addExpenseButtonAction(){
-        this.addExpenseButton.addActionListener(listener -> {
+        this.addExpenseButton.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
             try {
                 String expense = expenseField.getText();
                 String expenseType = String.valueOf(expenseTypeBox.getSelectedItem());
@@ -136,12 +138,18 @@ public class ExpenseForm extends JPanel {
                         splits.add(split);
                     }
                 }
+                // its the same splits which causes problems with the debt
+                // to fix
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
+                System.out.println(expense + " added");
+
+
             } catch (Exception e){
                 JOptionPane.showMessageDialog(this, "Invalid input, please check that you filled " +
                         "out everything correctly");
             }
-        });
+        }));
+
     }
 
 }
