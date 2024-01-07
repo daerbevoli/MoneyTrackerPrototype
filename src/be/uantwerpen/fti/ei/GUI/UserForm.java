@@ -1,11 +1,12 @@
 package be.uantwerpen.fti.ei.GUI;
 
+import be.uantwerpen.fti.ei.Constants;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
 import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 
-public class UserForm extends JPanel {
+public class UserForm extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;
     private final ExpenseForm expenseForm;
@@ -28,11 +29,11 @@ public class UserForm extends JPanel {
         backButton = new JButton("Back");
 
         // yet to make dimensions constant and consistent
-        usernameLabel.setBounds(125, 200, 75, 30);
-        username.setBounds(200, 200, 100, 30);
-        addButton.setBounds(200, 230, 100, 30);
-        removeButton.setBounds(200, 260, 100, 30);
-        backButton.setBounds(10, 10, 100, 30);
+        usernameLabel.setBounds(125, 200, bWidth, bHeight);
+        username.setBounds(200, 200, bWidth, bHeight);
+        addButton.setBounds(200, 230, bWidth, bHeight);
+        removeButton.setBounds(200, 260, bWidth, bHeight);
+        backButton.setBounds(bbX, bbY, bWidth, bHeight);
 
         this.add(usernameLabel);
         this.add(username);
@@ -89,13 +90,18 @@ public class UserForm extends JPanel {
             }
 
             for (User currentUser : expenseManager.getUsers().getData()) {
-                if (currentUser.getName().equals(username)) {
-                    userFound = true;
-                    expenseManager.removeUser(currentUser);
-                    expenseForm.removeFromPaidByBox(currentUser);
-                    expenseForm.removeUserFromSplits(currentUser);
-                    this.username.setText("");
-                    break;
+                if (expenseManager.getDebtMap().get(currentUser) > 0){ // only able to remove if user is debt free
+                    if (currentUser.getName().equals(username)) {
+                        userFound = true;
+                        expenseManager.removeUser(currentUser);
+                        expenseForm.removeFromPaidByBox(currentUser);
+                        expenseForm.removeUserFromSplits(currentUser);
+                        this.username.setText("");
+                        break;
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this, "User is in debt");
+                    return;
                 }
             }
 

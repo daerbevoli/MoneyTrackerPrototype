@@ -1,12 +1,13 @@
 package be.uantwerpen.fti.ei.GUI;
 
+import be.uantwerpen.fti.ei.Constants;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 // GUI class , yet to be implemented
-public class GUI extends JFrame {
+public class GUI extends JFrame implements Constants {
 
     private final ExpenseManager expenseManager;
     private final HomePanel homePanel;
@@ -19,13 +20,10 @@ public class GUI extends JFrame {
         this.add(homePanel.getControlPanel(), BorderLayout.SOUTH);
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(500, 500);
+        setSize(SCREENWIDTH, SCREENHEIGHT);
         setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
 
-    }
-
-    public HomePanel getHomePanel() {
-        return homePanel;
     }
 }

@@ -1,8 +1,6 @@
 package be.uantwerpen.fti.ei.GUI;
 
-import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
-import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 import java.awt.*;
@@ -61,9 +59,7 @@ public class HomePanel {
         controlPanel.add(switchTickets);
         controlPanel.add(switchDebts);
 
-        // Users based panels
-
-
+        // based panels
 
         // display the users
         userDisplayPanel = new UserDisplayPanel(expenseManager);
@@ -73,7 +69,6 @@ public class HomePanel {
 
         showUsersActions();
         addUserActionBackButton();
-
 
         // compute debts
         computeDebts = new JButton("Show debts");
@@ -87,7 +82,7 @@ public class HomePanel {
         // add an expense
         addExpense = new JButton("Add expense");
         ticketsPanel.add(addExpense);
-        expenseForm = new ExpenseForm(expenseManager, computeDebtsPanel);
+        expenseForm = new ExpenseForm(expenseManager);
         cardPanel.add(expenseForm, "expenseform");
 
         addExpenseAction();
