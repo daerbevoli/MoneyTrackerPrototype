@@ -37,12 +37,6 @@ public class UserDB extends Database<User> {
         db.removeIf(element -> element.equals(user)); // safely remove item from list
     }
 
-    @Override
-    public void printDb(){
-        for (User user : db){
-            System.out.println(user.getName());
-        }
-    }
 
     @Override
     public boolean isEmpty() {

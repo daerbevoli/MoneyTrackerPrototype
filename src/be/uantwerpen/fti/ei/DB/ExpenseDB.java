@@ -32,25 +32,10 @@ public class ExpenseDB extends Database<Expense> {
         db.add(expense);
     }
 
+    // could use template pattern for this
     @Override
     public void removeEntry(Expense entry) {
         //
-    }
-
-    @Override
-    public void printDb() {
-        for (Expense expense : db){
-            String paidBy = expense.getPaidBy().getName();
-            System.out.println(paidBy +  " paid for " + expense.getName() + " To");
-            for (int i = 0 ; i < expense.getSplits().size(); i++){
-                String paidTo = expense.getSplits().get(i).getUser().getName();
-                if (paidTo.equals(expense.getPaidBy().getName())){
-                    paidTo = "himself";
-                }
-                System.out.print(paidTo + " ");
-            }
-            System.out.println();
-        }
     }
 
     @Override
