@@ -89,41 +89,79 @@ public class ExpenseForm extends JPanel implements Constants {
 
         usersAmountField = new ArrayList<>();
         usersAmountName = new ArrayList<>();
+        makeExactTypeAmountBoxes();
         expenseTypeBoxAction();
 
 
     }
 
-    public void expenseTypeBoxAction(){
-        this.expenseTypeBox.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
-            boolean isVisible = "EXACT".equals(expenseTypeBox.getSelectedItem());
-
-            for (int i = 0; i < expenseManager.getUsers().getData().size(); i++) {
-                JTextField amount = new JTextField(8);
-                usersAmountField.add(amount);
-                amount.setBounds(375, 200 + (i * 30), 75, 30);
-                amount.setVisible(isVisible);
-                add(amount);
-
-                JLabel name = new JLabel(expenseManager.getUsers().getData().get(i).getName());
-                usersAmountName.add(name);
-                name.setBounds(325, 200 + (i * 30), 75, 30);
-                name.setVisible(isVisible);
-                add(name);
-            }
-
-        }));
-    }
-
     public void addUserToSplits(User user){
         listModel.addElement(user);
         nameModel.addElement(user.getName());
+        updateExactLabels();
     }
 
     public void removeUserFromSplits(User user){
         listModel.removeElement(user);
         nameModel.removeElement(user.getName());
+        updateExactLabels();
     }
+
+    private void updateExactLabels(){
+        // Remove existing components
+        for (JTextField amount : usersAmountField) {
+            remove(amount);
+        }
+        usersAmountField.clear();
+
+        for (JLabel name : usersAmountName) {
+            remove(name);
+        }
+        usersAmountName.clear();
+
+        // Call validate and repaint to apply changes
+        validate();
+        repaint();
+
+        makeExactTypeAmountBoxes();
+    }
+
+    private void makeExactTypeAmountBoxes(){
+        for (int i = 0; i < expenseManager.getUsers().getData().size(); i++) {
+            JTextField amount = new JTextField(8);
+            usersAmountField.add(amount);
+            amount.setBounds(375, 200 + (i * 30), 75, 30);
+            setVisible(false);
+            add(amount);
+
+            JLabel name = new JLabel(expenseManager.getUsers().getData().get(i).getName() + " : ");
+            usersAmountName.add(name);
+            name.setBounds(325, 200 + (i * 30), 75, 30);
+            setVisible(false);
+            add(name);
+
+        }
+        System.out.println("Boxes made");
+    }
+
+    public void expenseTypeBoxAction(){
+        this.expenseTypeBox.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
+            System.out.println("In the action method");
+
+            for (int i = 0; i < usersAmountField.size(); i++){
+                if ("EXACT".equals(expenseTypeBox.getSelectedItem())){
+                    usersAmountField.get(i).setVisible(true);
+                    usersAmountName.get(i).setVisible(true);
+                } else {
+                    usersAmountField.get(i).setVisible(false);
+                    usersAmountName.get(i).setVisible(false);
+                }
+            }
+
+        }));
+    }
+
+
 
     private JLabel makeNameLabel(String name, int y){
         JLabel label = new JLabel(name);
@@ -164,9 +202,14 @@ public class ExpenseForm extends JPanel implements Constants {
                 }
 
                 int amount = Integer.parseInt(amountText);
-                User paidBy = new User(String.valueOf(paidbyBox.getSelectedItem()));
+                User paidBy = null;
+                for (User user : expenseManager.getUsers().getData()){
+                    if (user.getName().equals(String.valueOf(paidbyBox.getSelectedItem()))){
+                        paidBy = user;
+                        break;
+                    }
+                }
                 List<Split> splits = new ArrayList<>();
-
                 for (int i = 0; i < listModel.size(); i++) {
                     if (expenseType.equals("EQUAL")) {
                         Split split = new EqualSplit(listModel.get(i));
