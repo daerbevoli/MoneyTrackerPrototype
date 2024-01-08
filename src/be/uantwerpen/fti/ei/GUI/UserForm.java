@@ -58,13 +58,13 @@ public class UserForm extends JPanel implements Constants {
             boolean emptyString = username.isEmpty();
 
             if (emptyString) {
-                JOptionPane.showMessageDialog(this, "Username cannot be empty");
+                JOptionPane.showMessageDialog(this, "Username cannot be empty", "EmptyStringError", JOptionPane.ERROR_MESSAGE);
             }
             for (User user : expenseManager.getUsers().getData()) {
                 existingUser = username.equals(user.getName());
                 if (existingUser) {
                     JOptionPane.showMessageDialog(this, "User already exist, If new user with same name" +
-                            ", use enumeration");
+                            ", use enumeration", "UserAlreadyExistsError", JOptionPane.ERROR_MESSAGE);
                     this.username.setText("");
                 }
             }
@@ -74,6 +74,8 @@ public class UserForm extends JPanel implements Constants {
                 expenseForm.addToPaidByBox(user);
                 expenseForm.addUserToSplits(user);
                 this.username.setText("");
+                JOptionPane.showMessageDialog(this, user.getName() +
+                        " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
 
             }
         }));
@@ -86,27 +88,29 @@ public class UserForm extends JPanel implements Constants {
             boolean emptyString = username.isEmpty();
 
             if (emptyString) {
-                JOptionPane.showMessageDialog(this, "Username cannot be empty");
+                JOptionPane.showMessageDialog(this, "Username cannot be empty", "StringEmptyError", JOptionPane.ERROR_MESSAGE);
             }
 
-            for (User currentUser : expenseManager.getUsers().getData()) {
-                if (currentUser.getName().equals(username)){ // only able to remove if user is debt free
-                    if (!expenseManager.getDebtMap().containsKey(currentUser)){ // if user not in debt map
+            for (User user : expenseManager.getUsers().getData()) {
+                if (user.getName().equals(username)){ // only able to remove if user is debt free
+                    if (!expenseManager.getDebtMap().containsKey(user)){ // if user not in debt map
                         userFound = true;
-                        expenseManager.removeUser(currentUser);
-                        expenseForm.removeFromPaidByBox(currentUser);
-                        expenseForm.removeUserFromSplits(currentUser);
+                        expenseManager.removeUser(user);
+                        expenseForm.removeFromPaidByBox(user);
+                        expenseForm.removeUserFromSplits(user);
                         this.username.setText("");
+                        JOptionPane.showMessageDialog(this, user.getName() +
+                                " succesfully removed", "RemoveSucces", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     } else {
-                        JOptionPane.showMessageDialog(this, "User is in debt");
+                        JOptionPane.showMessageDialog(this, "User is in debt", "DebtError", JOptionPane.ERROR_MESSAGE);
                         return;
                     }
                 }
             }
 
             if (!userFound && !emptyString) {
-                JOptionPane.showMessageDialog(this, "User to remove not found or database is empty");
+                JOptionPane.showMessageDialog(this, "User to remove not found", "UserNotFoundError", JOptionPane.ERROR_MESSAGE);
                 this.username.setText("");
             }
         }));

@@ -89,10 +89,7 @@ public class ExpenseForm extends JPanel implements Constants {
 
         usersAmountField = new ArrayList<>();
         usersAmountName = new ArrayList<>();
-        //makeExactTypeAmountBoxes();
         expenseTypeBoxAction();
-
-
     }
 
     public void addUserToSplits(User user){
@@ -142,12 +139,10 @@ public class ExpenseForm extends JPanel implements Constants {
 
 
         }
-        System.out.println("Boxes made");
     }
 
     public void expenseTypeBoxAction(){
         this.expenseTypeBox.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
-            System.out.println("In the action method");
 
             for (int i = 0; i < usersAmountField.size(); i++){
                 if ("EXACT".equals(expenseTypeBox.getSelectedItem())){
@@ -162,15 +157,12 @@ public class ExpenseForm extends JPanel implements Constants {
         }));
     }
 
-
-
     private JLabel makeNameLabel(String name, int y){
         JLabel label = new JLabel(name);
         label.setBounds(100, y, bWidth, bHeight);
         return label;
     }
 
-    // does not work properly yet
     public void addToPaidByBox(User user){
         paidbyBox.addItem(user.getName());
     }
@@ -178,7 +170,6 @@ public class ExpenseForm extends JPanel implements Constants {
     public void removeFromPaidByBox(User user){
         paidbyBox.removeItem(user.getName());
     }
-
 
     private void fillExpenseTypeBox(){
         expenseTypeBox.addItem("EQUAL");
@@ -198,7 +189,7 @@ public class ExpenseForm extends JPanel implements Constants {
                 String amountText = amountField.getText();
 
                 if (expense.isEmpty() || expenseType.isEmpty() || amountText.isEmpty()) {
-                    JOptionPane.showMessageDialog(this, "Please fill out all fields.");
+                    JOptionPane.showMessageDialog(this, "Please fill out all fields.", "incompleteFillError", JOptionPane.WARNING_MESSAGE);
                     return;
                 }
 
@@ -222,7 +213,8 @@ public class ExpenseForm extends JPanel implements Constants {
                             Split split = new ExactSplit(listModel.get(i), exactAmount);
                             splits.add(split);
                         } catch (NumberFormatException e) {
-                            JOptionPane.showMessageDialog(this, "Invalid input for exact amounts");
+                            JOptionPane.showMessageDialog(this, "Invalid input for exact amounts",
+                                    "ExactValidateError", JOptionPane.ERROR_MESSAGE);
                             return;
                         }
                     }
@@ -230,13 +222,15 @@ public class ExpenseForm extends JPanel implements Constants {
 
                 // Add expense and handle other tasks
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
+                JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
+
 
                 // Reset fields
                 resetFields();
 
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(this, "Invalid input, please check that you filled " +
-                        "out everything correctly");
+                        "out everything correctly", "GeneralError", JOptionPane.ERROR_MESSAGE);
             }
         }));
     }
