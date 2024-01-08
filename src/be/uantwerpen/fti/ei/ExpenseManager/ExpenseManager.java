@@ -33,7 +33,7 @@ public class ExpenseManager {
         users.removeEntry(user);
     }
 
-    public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
+    public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) throws Exception {
         Expense expense = ExpenseFactory.createExpense(name, expenseType, amount, paidBy, splits);
         expenses.addEntry(expense);
 

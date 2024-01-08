@@ -230,7 +230,6 @@ public class ExpenseForm extends JPanel implements Constants {
 
                 // Add expense and handle other tasks
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
-                System.out.println(expense + " added");
 
                 // Reset fields
                 resetFields();

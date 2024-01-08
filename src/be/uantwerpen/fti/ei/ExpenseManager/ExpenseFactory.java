@@ -11,11 +11,16 @@ import java.util.List;
 // Factory design pattern
 public class ExpenseFactory {
 
-    public static Expense createExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) {
+    public static Expense createExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) throws Exception {
 
         switch (expenseType) {
             case "EXACT":
-                return new ExactExpense(name, amount, paidBy, splits);
+                Expense expense = new ExactExpense(name, amount, paidBy, splits);
+                if (expense.validate()){
+                    return expense;
+                } else {
+                    throw new Exception("Exact amounts dont add up");
+                }
 
             case "EQUAL":
                 // if amount split equally, divide equally
