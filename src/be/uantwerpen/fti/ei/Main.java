@@ -22,7 +22,7 @@ public class Main {
         ExpenseManager expenseManager = new ExpenseManager(dbUsers, dbExpenses);
 
         // the code on the console
-        User sam = new User("sam");
+        /*User sam = new User("sam");
         User john = new User("john");
         User steve = new User("steve");
 
@@ -57,12 +57,16 @@ public class Main {
             System.out.println(str);
         }
         //
-
+*/
         // the GUI
         // you need to put the code above between comments to run the gui on a clean slate
-       //GUI gui = new GUI(expenseManager);
+       GUI gui = new GUI(expenseManager);
 
-
+        // TO DO
+        // add label that user is added or removed
+        // add label that expense is added
+        // add one of the design pattern seen in the class
+        // code cleanup
 
     }
 
