@@ -90,18 +90,18 @@ public class UserForm extends JPanel implements Constants {
             }
 
             for (User currentUser : expenseManager.getUsers().getData()) {
-                if (expenseManager.getDebtMap().get(currentUser) > 0){ // only able to remove if user is debt free
-                    if (currentUser.getName().equals(username)) {
+                if (currentUser.getName().equals(username)){ // only able to remove if user is debt free
+                    if (!expenseManager.getDebtMap().containsKey(currentUser)){ // if user not in debt map
                         userFound = true;
                         expenseManager.removeUser(currentUser);
                         expenseForm.removeFromPaidByBox(currentUser);
                         expenseForm.removeUserFromSplits(currentUser);
                         this.username.setText("");
                         break;
+                    } else {
+                        JOptionPane.showMessageDialog(this, "User is in debt");
+                        return;
                     }
-                } else {
-                    JOptionPane.showMessageDialog(this, "User is in debt");
-                    return;
                 }
             }
 

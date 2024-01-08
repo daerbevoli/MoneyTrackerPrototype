@@ -89,7 +89,7 @@ public class ExpenseForm extends JPanel implements Constants {
 
         usersAmountField = new ArrayList<>();
         usersAmountName = new ArrayList<>();
-        makeExactTypeAmountBoxes();
+        //makeExactTypeAmountBoxes();
         expenseTypeBoxAction();
 
 
@@ -131,14 +131,15 @@ public class ExpenseForm extends JPanel implements Constants {
             JTextField amount = new JTextField(8);
             usersAmountField.add(amount);
             amount.setBounds(375, 200 + (i * 30), 75, 30);
-            setVisible(false);
+            amount.setVisible(false);
             add(amount);
 
             JLabel name = new JLabel(expenseManager.getUsers().getData().get(i).getName() + " : ");
             usersAmountName.add(name);
             name.setBounds(325, 200 + (i * 30), 75, 30);
-            setVisible(false);
+            name.setVisible(false);
             add(name);
+
 
         }
         System.out.println("Boxes made");
