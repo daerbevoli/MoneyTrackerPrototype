@@ -1,7 +1,6 @@
 package be.uantwerpen.fti.ei.SubjectObservers;
 
 public class usersObs implements Observer{
-
     public usersObs(){
 
     }
