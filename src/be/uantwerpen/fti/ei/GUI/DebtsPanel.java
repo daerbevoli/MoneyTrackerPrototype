@@ -37,9 +37,7 @@ public class DebtsPanel extends JPanel implements Constants {
 
     private void updateDebtsAction() {
         this.updateDebts.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
-            System.out.println("Before update: " + debtList);
             debtList = expenseManager.settleDebt();
-            System.out.println("After update: " + debtList);
             repaint();
         }));
     }

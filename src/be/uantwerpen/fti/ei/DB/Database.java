@@ -1,12 +1,11 @@
 package be.uantwerpen.fti.ei.DB;
 
-import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.SubjectObservers.Subject;
-import be.uantwerpen.fti.ei.User;
 
 import java.util.List;
 
+// database = model
 public abstract class Database<T> implements Subject {
 
     public abstract void addEntry(T entry);

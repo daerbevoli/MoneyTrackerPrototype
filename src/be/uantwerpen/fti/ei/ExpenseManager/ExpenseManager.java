@@ -7,8 +7,7 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.*;
 
-// expense manager / controller class
-// controller in the MVC design pattern
+// expense manager = controller & facade
 public class ExpenseManager {
 
     private final Database<Expense> expenses;
@@ -26,7 +25,6 @@ public class ExpenseManager {
     public void addUser(User user){
         users.addEntry(user);
         balanceSheet.put(user, new HashMap<>());
-        users.notifyObserver();
     }
 
     public void removeUser(User user){
@@ -41,7 +39,6 @@ public class ExpenseManager {
             User paidTo = split.getUser();
             updateBalances(paidBy, paidTo, split.getAmount());
         }
-        expenses.notifyObserver();
     }
 
     private void updateBalances(User paidBy, User paidTo, double amount) {

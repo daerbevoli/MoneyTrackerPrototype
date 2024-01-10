@@ -1,6 +1,5 @@
 package be.uantwerpen.fti.ei.DB;
 
-import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.User;
 

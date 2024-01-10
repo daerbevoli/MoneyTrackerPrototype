@@ -19,7 +19,7 @@ public class ExpenseFactory {
                 if (expense.validate()){
                     return expense;
                 } else {
-                    throw new Exception("Exact amounts dont add up");
+                    throw new Exception("Exact amounts don't add up");
                 }
 
             case "EQUAL":
