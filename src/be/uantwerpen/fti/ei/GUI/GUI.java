@@ -1,21 +1,25 @@
 package be.uantwerpen.fti.ei.GUI;
 
 import be.uantwerpen.fti.ei.Constants;
+import be.uantwerpen.fti.ei.DB.Database;
+import be.uantwerpen.fti.ei.DB.ExpenseDB;
+import be.uantwerpen.fti.ei.DB.UserDB;
+import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
+import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 import java.awt.*;
 
-// GUI class , yet to be implemented
+// GUI = view
 public class GUI extends JFrame implements Constants {
 
-    private final ExpenseManager expenseManager;
-    private final HomePanel homePanel;
+    public GUI(){
+        Database<User> dbUsers = UserDB.getInstance();
+        Database<Expense> dbExpenses = ExpenseDB.getInstance();
+        ExpenseManager expenseManager = new ExpenseManager(dbUsers, dbExpenses);
 
-    public GUI(ExpenseManager expenseManager){
-        this.expenseManager = expenseManager;
-
-        homePanel = new HomePanel(expenseManager);
+        HomePanel homePanel = new HomePanel(expenseManager);
         this.add(homePanel.getCardPanel(), BorderLayout.CENTER);
         this.add(homePanel.getControlPanel(), BorderLayout.SOUTH);
 

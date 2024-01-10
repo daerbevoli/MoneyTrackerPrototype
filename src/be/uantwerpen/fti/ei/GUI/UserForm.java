@@ -74,8 +74,8 @@ public class UserForm extends JPanel implements Constants {
                 expenseForm.addToPaidByBox(user);
                 expenseForm.addUserToSplits(user);
                 this.username.setText("");
-                JOptionPane.showMessageDialog(this, user.getName() +
-                        " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "User " + user.getName() +
+                        " successfully added", "AddSuccess", JOptionPane.INFORMATION_MESSAGE);
 
             }
         }));
@@ -93,14 +93,14 @@ public class UserForm extends JPanel implements Constants {
 
             for (User user : expenseManager.getUsers().getData()) {
                 if (user.getName().equals(username)){ // only able to remove if user is debt free
-                    if (!expenseManager.getDebtMap().containsKey(user)){ // if user not in debt map
+                    if (!expenseManager.getDebtMap().containsKey(user)){
                         userFound = true;
                         expenseManager.removeUser(user);
                         expenseForm.removeFromPaidByBox(user);
                         expenseForm.removeUserFromSplits(user);
                         this.username.setText("");
-                        JOptionPane.showMessageDialog(this, user.getName() +
-                                " succesfully removed", "RemoveSucces", JOptionPane.INFORMATION_MESSAGE);
+                        JOptionPane.showMessageDialog(this, "User " + user.getName() +
+                                " successfully removed", "RemoveSuccess", JOptionPane.INFORMATION_MESSAGE);
                         break;
                     } else {
                         JOptionPane.showMessageDialog(this, "User is in debt", "DebtError", JOptionPane.ERROR_MESSAGE);

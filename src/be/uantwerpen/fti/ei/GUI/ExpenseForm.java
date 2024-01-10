@@ -12,12 +12,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseForm extends JPanel implements Constants {
-    // public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits)
-    // JTextfield name of expense (dinner, lunch, ..)
-    // JTextfield amount
-    // JComboBox paidBy with names of all users
-    // JComboBox expenseType
-    // JCheckBox splits
 
     private final ExpenseManager expenseManager;
 
@@ -31,7 +25,6 @@ public class ExpenseForm extends JPanel implements Constants {
     private final List<JTextField> usersAmountField;
     private final List<JLabel> usersAmountName;
 
-
     private final JButton addExpenseButton;
     private final JButton backButton;
 
@@ -40,10 +33,10 @@ public class ExpenseForm extends JPanel implements Constants {
 
         setLayout(null);
 
-        JLabel expenseLabel = makeNameLabel("Activity: ", 100); // expense name
-        JLabel amountLabel = makeNameLabel("Amount: ", 150); // amount
-        JLabel paidByLabel = makeNameLabel("Paid by: ", 200); // who paid
-        JLabel expenseTypeLabel = makeNameLabel("Expense type: ", 250); // how its split
+        JLabel expenseLabel = makeNameLabel("Activity: ", 100);
+        JLabel amountLabel = makeNameLabel("Amount: ", 150);
+        JLabel paidByLabel = makeNameLabel("Paid by: ", 200);
+        JLabel expenseTypeLabel = makeNameLabel("Expense type: ", 250);
         JLabel splits = makeNameLabel("Splits: ", 300);
 
         add(expenseLabel);

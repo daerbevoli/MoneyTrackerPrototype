@@ -15,7 +15,7 @@ public class HomePanel {
     private final JPanel controlPanel;
 
     private final JButton switchUsers;
-    private final JButton switchTickets;
+    private final JButton switchExpenses;
     private final JButton switchDebts;
 
     private final JButton addRemoveUser;
@@ -40,25 +40,25 @@ public class HomePanel {
 
         // Four main panels
         JPanel userPanel = createPanel("Users");
-        JPanel ticketsPanel = createPanel("Tickets");
+        JPanel expensePanel = createPanel("Expenses");
         JPanel debtsPanel = createPanel("Debts");
         controlPanel = createPanel("");
 
         cardPanel.add(userPanel, "Users");
-        cardPanel.add(ticketsPanel, "Tickets");
+        cardPanel.add(expensePanel, "Expenses");
         cardPanel.add(debtsPanel, "Debts");
 
         // two main buttons
         switchUsers = new JButton("Users");
-        switchTickets = new JButton("Tickets");
+        switchExpenses = new JButton("Expenses");
         switchDebts = new JButton("Debts");
 
         addSwitchUsersAction();
-        addSwitchTicketsAction();
+        addSwitchExpenseAction();
         addSwitchDebtsAction();
 
         controlPanel.add(switchUsers);
-        controlPanel.add(switchTickets);
+        controlPanel.add(switchExpenses);
         controlPanel.add(switchDebts);
 
         // based panels
@@ -83,9 +83,9 @@ public class HomePanel {
 
         // add an expense
         addExpense = new JButton("Add expense");
-        ticketsPanel.add(addExpense);
+        expensePanel.add(addExpense);
         expenseForm = new ExpenseForm(expenseManager);
-        cardPanel.add(expenseForm, "expenseform");
+        cardPanel.add(expenseForm, "expenseForm");
 
         addExpenseAction();
         addExpenseActionBackButton();
@@ -94,7 +94,7 @@ public class HomePanel {
         addRemoveUser = new JButton("Add / Remove user");
         userPanel.add(addRemoveUser);
         userForm = new UserForm(expenseManager, expenseForm);
-        cardPanel.add(userForm, "userform");
+        cardPanel.add(userForm, "userForm");
 
         addRemoveUserAction();
         addRemoveUserformBackAction();
@@ -103,7 +103,7 @@ public class HomePanel {
         expenseDisplayPanel = new ExpenseDisplayPanel(expenseManager);
         cardPanel.add(expenseDisplayPanel, "displayExpenses");
         showExpenses = new JButton("Show expenses");
-        ticketsPanel.add(showExpenses);
+        expensePanel.add(showExpenses);
 
         showExpensesAction();
         showExpensesActionBackButton();
@@ -125,14 +125,16 @@ public class HomePanel {
         return panel;
     }
 
+    // switch to one of the main panels
+
     private void addSwitchUsersAction(){
         this.switchUsers.addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));
     }
 
-    private void addSwitchTicketsAction(){
-        this.switchTickets.addActionListener(listener ->
-                SwingUtilities.invokeLater(()-> cardLayout.show(cardPanel, "Tickets")));
+    private void addSwitchExpenseAction(){
+        this.switchExpenses.addActionListener(listener ->
+                SwingUtilities.invokeLater(()-> cardLayout.show(cardPanel, "Expenses")));
     }
 
     private void addSwitchDebtsAction(){
@@ -140,23 +142,25 @@ public class HomePanel {
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Debts")));
     }
 
+    // switch to add or remove user panel
     private void addRemoveUserAction(){
         this.addRemoveUser.addActionListener(listener ->
-                SwingUtilities.invokeLater(()-> cardLayout.show(cardPanel, "userform")));
+                SwingUtilities.invokeLater(()-> cardLayout.show(cardPanel, "userForm")));
     }
 
+    // return to main panel from user panel
     private void addRemoveUserformBackAction(){
         this.userForm.getBackButton().addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));
     }
 
+    // display users panel
     private void showUsersAction() {
-        this.showUsers.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
-            cardLayout.show(cardPanel, "displayUsers");
-            userDisplayPanel.repaint();
-        }));
+        this.showUsers.addActionListener(listener ->
+                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "displayUsers")));
     }
 
+    // return from display users panel
     private void showUserActionBackButton(){
         this.userDisplayPanel.getBackButton().addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));
@@ -164,13 +168,13 @@ public class HomePanel {
 
     private void addExpenseAction(){
         this.addExpense.addActionListener(listener ->
-                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "expenseform")));
+                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "expenseForm")));
 
     }
 
     private void addExpenseActionBackButton(){
         this.expenseForm.getBackButton().addActionListener(listener ->
-                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Tickets")));
+                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Expenses")));
 
     }
 
@@ -181,7 +185,7 @@ public class HomePanel {
 
     private void showExpensesActionBackButton(){
         this.expenseDisplayPanel.getBackButton().addActionListener(listener ->
-                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Tickets")));
+                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Expenses")));
     }
 
     private void computeDebtsAction() {
