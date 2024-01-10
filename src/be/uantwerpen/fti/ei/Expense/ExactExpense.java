@@ -7,8 +7,8 @@ import be.uantwerpen.fti.ei.User;
 import java.util.List;
 
 public class ExactExpense extends Expense {
-    public ExactExpense(String name, double amount, User paidBy, List<Split> splits) {
-        super(name, amount, paidBy, splits);
+    public ExactExpense(String name, double amount, User paidBy, List<Split> splits, String expenseType) {
+        super(name, amount, paidBy, splits, expenseType);
     }
 
     @Override

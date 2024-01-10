@@ -25,6 +25,8 @@ public class HomePanel {
 
     private final JButton addExpense;
     private final ExpenseForm expenseForm;
+    private final JButton showExpenses;
+    private final ExpenseDisplayPanel expenseDisplayPanel;
 
     private final JButton computeDebts;
     private final DebtsPanel computeDebtsPanel;
@@ -67,8 +69,8 @@ public class HomePanel {
         showUsers = new JButton("Show users");
         userPanel.add(showUsers);
 
-        showUsersActions();
-        addUserActionBackButton();
+        showUsersAction();
+        showUserActionBackButton();
 
         // compute debts
         computeDebts = new JButton("Show debts");
@@ -96,6 +98,16 @@ public class HomePanel {
 
         addRemoveUserAction();
         addRemoveUserformBackAction();
+
+        // display the expenses
+        expenseDisplayPanel = new ExpenseDisplayPanel(expenseManager);
+        cardPanel.add(expenseDisplayPanel, "displayExpenses");
+        showExpenses = new JButton("Show expenses");
+        ticketsPanel.add(showExpenses);
+
+        showExpensesAction();
+        showExpensesActionBackButton();
+
 
     }
 
@@ -138,14 +150,14 @@ public class HomePanel {
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));
     }
 
-    private void showUsersActions() {
+    private void showUsersAction() {
         this.showUsers.addActionListener(listener -> SwingUtilities.invokeLater(() -> {
             cardLayout.show(cardPanel, "displayUsers");
             userDisplayPanel.repaint();
         }));
     }
 
-    private void addUserActionBackButton(){
+    private void showUserActionBackButton(){
         this.userDisplayPanel.getBackButton().addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));
     }
@@ -160,6 +172,16 @@ public class HomePanel {
         this.expenseForm.getBackButton().addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Tickets")));
 
+    }
+
+    private void showExpensesAction(){
+        this.showExpenses.addActionListener(listener ->
+                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "displayExpenses")));
+    }
+
+    private void showExpensesActionBackButton(){
+        this.expenseDisplayPanel.getBackButton().addActionListener(listener ->
+                SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Tickets")));
     }
 
     private void computeDebtsAction() {

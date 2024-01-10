@@ -7,8 +7,8 @@ import be.uantwerpen.fti.ei.User;
 import java.util.List;
 
 public class EqualExpense extends Expense {
-    public EqualExpense(String name, double amount, User paidBy, List<Split> splits) {
-        super(name, amount, paidBy, splits);
+    public EqualExpense(String name, double amount, User paidBy, List<Split> splits, String expenseType) {
+        super(name, amount, paidBy, splits, expenseType);
     }
 
     @Override

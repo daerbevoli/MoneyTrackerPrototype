@@ -40,7 +40,7 @@ public class ExpenseForm extends JPanel implements Constants {
 
         setLayout(null);
 
-        JLabel expenseLabel = makeNameLabel("Name: ", 100); // expense name
+        JLabel expenseLabel = makeNameLabel("Activity: ", 100); // expense name
         JLabel amountLabel = makeNameLabel("Amount: ", 150); // amount
         JLabel paidByLabel = makeNameLabel("Paid by: ", 200); // who paid
         JLabel expenseTypeLabel = makeNameLabel("Expense type: ", 250); // how its split

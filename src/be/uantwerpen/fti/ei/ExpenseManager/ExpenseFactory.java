@@ -15,7 +15,7 @@ public class ExpenseFactory {
 
         switch (expenseType) {
             case "EXACT":
-                Expense expense = new ExactExpense(name, amount, paidBy, splits);
+                Expense expense = new ExactExpense(name, amount, paidBy, splits, expenseType);
                 if (expense.validate()){
                     return expense;
                 } else {
@@ -33,7 +33,7 @@ public class ExpenseFactory {
                 // rounding may lead to discrepancy in total split amount
                 // the line below adjust the amount of the first split to account for it
                 splits.get(0).setAmount(splitAmount + (amount - splitAmount*totalSplits));
-                return new EqualExpense(name, amount, paidBy, splits);
+                return new EqualExpense(name, amount, paidBy, splits, expenseType);
 
             default:
                 return null;

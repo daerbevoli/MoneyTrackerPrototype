@@ -10,12 +10,14 @@ public abstract class Expense {
     private double amount;
     private User paidBy;
     private List<Split> splits;
+    private String expenseType;
 
-    public Expense(String name, double amount, User paidBy, List<Split> splits) {
+    public Expense(String name, double amount, User paidBy, List<Split> splits, String expenseType) {
         this.name = name;
         this.amount = amount;
         this.paidBy = paidBy;
         this.splits = splits;
+        this.expenseType = expenseType;
     }
 
     public String getName() {
@@ -48,6 +50,14 @@ public abstract class Expense {
 
     public void setSplits(List<Split> splits) {
         this.splits = splits;
+    }
+
+    public String getExpenseType() {
+        return expenseType;
+    }
+
+    public void setExpenseType(String expenseType) {
+        this.expenseType = expenseType;
     }
 
     public abstract boolean validate();
