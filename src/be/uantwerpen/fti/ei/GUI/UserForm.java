@@ -66,6 +66,7 @@ public class UserForm extends JPanel implements Constants {
                     JOptionPane.showMessageDialog(this, "User already exist, If new user with same name" +
                             ", use enumeration", "UserAlreadyExistsError", JOptionPane.ERROR_MESSAGE);
                     this.username.setText("");
+                    break;
                 }
             }
             if (!emptyString && !existingUser) {
@@ -104,6 +105,7 @@ public class UserForm extends JPanel implements Constants {
                         break;
                     } else {
                         JOptionPane.showMessageDialog(this, "User is in debt", "DebtError", JOptionPane.ERROR_MESSAGE);
+                        this.username.setText("");
                         return;
                     }
                 }
