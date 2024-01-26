@@ -2,7 +2,6 @@ package be.uantwerpen.fti.ei.GUI;
 
 import be.uantwerpen.fti.ei.Constants;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
-import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;

@@ -50,7 +50,7 @@ public class ExpenseDisplayPanel extends JPanel implements Constants {
         StringBuilder splits = new StringBuilder();
         for (Split split : expense.getSplits()){
             if (split.getUser().getName().equals(paidBy)){
-                splits.append(" himself ");
+                splits.append(" self ");
             } else {
                 splits.append(" ").append(split.getUser().getName());
             }
