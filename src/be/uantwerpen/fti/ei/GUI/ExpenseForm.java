@@ -11,6 +11,9 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The ExpenseForm class handles the input of expenses taking into account wrong inputs.
+ */
 public class ExpenseForm extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;
@@ -214,7 +217,8 @@ public class ExpenseForm extends JPanel implements Constants {
 
                 // Add expense and handle other tasks
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
-                JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Expense " + expense + " succesfully added",
+                        "AddSucces", JOptionPane.INFORMATION_MESSAGE);
 
 
                 // Reset fields

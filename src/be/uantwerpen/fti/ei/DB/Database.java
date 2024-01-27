@@ -5,14 +5,17 @@ import be.uantwerpen.fti.ei.SubjectObservers.Subject;
 
 import java.util.List;
 
-// database = model
+/**
+ * Abstract database class inherited by the users and expenses database.
+ * The database is the model in the MVC design pattern and the subject for the observer design pattern.
+ * @param <T> Type of database of the subclass.
+ */
 public abstract class Database<T> implements Subject {
 
     public abstract void addEntry(T entry);
 
     public abstract void removeEntry(T entry);
 
-    // check whether the database is empty
     public abstract boolean isEmpty();
 
     public abstract List<T> getData();

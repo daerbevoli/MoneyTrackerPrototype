@@ -9,6 +9,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The ExpenseDisplayPanel class displays the expenses in the form
+ * 'user1 paid amount for activity to userx, ... split expenseType'.
+ */
 public class ExpenseDisplayPanel extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;

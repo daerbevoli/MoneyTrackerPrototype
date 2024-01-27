@@ -6,6 +6,9 @@ import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 
+/**
+ * The UserForm class handles the input of users taking into account wrong inputs.
+ */
 public class UserForm extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;

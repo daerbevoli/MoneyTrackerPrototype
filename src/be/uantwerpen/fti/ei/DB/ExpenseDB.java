@@ -6,6 +6,10 @@ import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The expense database stores all the expenses. Expenses can be added but not removed.
+ * It employs the singleton design pattern so that the database cannot be defined multiple times.
+ */
 public class ExpenseDB extends Database<Expense> {
 
     private static ExpenseDB firstInstance = null;

@@ -7,6 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The DebtsPanel class displays the debts on the GUI in the for 'user owes user2 x amount'.
+ */
 public class DebtsPanel extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;

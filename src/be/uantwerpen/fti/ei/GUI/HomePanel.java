@@ -5,6 +5,9 @@ import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The homePanel class handles the switching between the panels.
+ */
 public class HomePanel {
 
     private final ExpenseManager expenseManager;

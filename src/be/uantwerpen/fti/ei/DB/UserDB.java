@@ -1,11 +1,14 @@
 package be.uantwerpen.fti.ei.DB;
 
 import be.uantwerpen.fti.ei.SubjectObservers.Observer;
-import be.uantwerpen.fti.ei.SubjectObservers.Subject;
 import be.uantwerpen.fti.ei.User;
 
 import java.util.*;
 
+/**
+ * The user database stores all the users. Users can be added and removed under certain conditions.
+ * It employs the singleton design pattern so that the database cannot be defined multiple times.
+ */
 public class UserDB extends Database<User> {
 
     private static UserDB firstInstance = null;

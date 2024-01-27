@@ -1,5 +1,8 @@
 package be.uantwerpen.fti.ei;
 
+/**
+ * The constants interface.
+ */
 public interface Constants {
     // general
     int SCREENWIDTH = 500;

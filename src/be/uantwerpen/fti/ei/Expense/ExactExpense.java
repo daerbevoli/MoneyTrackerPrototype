@@ -6,6 +6,10 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.List;
 
+/**
+ * The exact expense class.
+ * The validate method checks whether the sum of the exact amounts equate to the total amount.
+ */
 public class ExactExpense extends Expense {
     public ExactExpense(String name, double amount, User paidBy, List<Split> splits, String expenseType) {
         super(name, amount, paidBy, splits, expenseType);

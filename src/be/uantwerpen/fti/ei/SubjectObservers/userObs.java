@@ -1,7 +1,10 @@
 package be.uantwerpen.fti.ei.SubjectObservers;
 
-public class usersObs implements Observer{
-    public usersObs(){
+/**
+ * The user Observer class observes the user database and notifies when a user is added to the database.
+ */
+public class userObs implements Observer{
+    public userObs(){
 
     }
 

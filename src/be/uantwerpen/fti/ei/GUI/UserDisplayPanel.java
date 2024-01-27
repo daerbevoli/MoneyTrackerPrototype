@@ -8,6 +8,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The UserDisplayPanel class displays the users in the form 'User x : username'.
+ */
 public class UserDisplayPanel extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;
