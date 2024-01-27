@@ -8,5 +8,6 @@ public class usersObs implements Observer{
     @Override
     public void update() {
         System.out.println("User added to database");
+        System.out.flush();
     }
 }

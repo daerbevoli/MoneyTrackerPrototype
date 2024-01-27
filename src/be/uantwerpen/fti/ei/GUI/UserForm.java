@@ -77,7 +77,6 @@ public class UserForm extends JPanel implements Constants {
                 this.username.setText("");
                 JOptionPane.showMessageDialog(this, "User " + user.getName() +
                         " successfully added", "AddSuccess", JOptionPane.INFORMATION_MESSAGE);
-
             }
         }));
     }

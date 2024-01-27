@@ -1,6 +1,7 @@
 package be.uantwerpen.fti.ei.DB;
 
 import be.uantwerpen.fti.ei.SubjectObservers.Observer;
+import be.uantwerpen.fti.ei.SubjectObservers.Subject;
 import be.uantwerpen.fti.ei.User;
 
 import java.util.*;
@@ -29,6 +30,8 @@ public class UserDB extends Database<User> {
     @Override
     public void addEntry(User user) {
         db.add(user);
+        // Notify observers
+        notifyObserver();
     }
 
     @Override
