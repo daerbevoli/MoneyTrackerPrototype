@@ -29,6 +29,8 @@ public class ExpenseDB extends Database<Expense> {
     @Override
     public void addEntry(Expense expense) {
         db.add(expense);
+        // Notify observers
+        notifyObserver();
     }
 
     // could use template pattern for this
