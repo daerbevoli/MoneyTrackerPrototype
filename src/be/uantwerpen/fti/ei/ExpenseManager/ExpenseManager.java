@@ -16,7 +16,6 @@ import java.util.*;
  */
 
 public class ExpenseManager{
-    private final List<Observer> observers;
 
     private final Database<Expense> expenses;
     private final Database<User> users;
@@ -28,7 +27,6 @@ public class ExpenseManager{
         this.expenses = expenses;
         balanceSheet = new HashMap<>();
         debtMap = new TreeMap<>();
-        this.observers = new ArrayList<>();
     }
 
     public void addUser(User user){

@@ -10,7 +10,7 @@ public enum ValidActivityNames  {
 
     /**
      * Check if the provided category name is a valid ActivityCategory.
-     * @param categoryName the name of the category to check
+     * @param testName the name of the category to check
      * @return true if valid, false otherwise
      */
     public static boolean contains(String testName) {
