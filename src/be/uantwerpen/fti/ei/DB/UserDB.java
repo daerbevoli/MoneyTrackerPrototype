@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * The user database stores all the users. Users can be added and removed under certain conditions.
- * It employs the singleton design pattern so that the database cannot be defined multiple times.
+ * It employs the singleton design pattern so that the database cannot be instantiated multiple times.
  */
 public class UserDB extends Database<User> {
 

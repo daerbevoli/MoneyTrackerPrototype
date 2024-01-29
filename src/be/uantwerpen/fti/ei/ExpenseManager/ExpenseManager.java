@@ -3,7 +3,6 @@ package be.uantwerpen.fti.ei.ExpenseManager;
 import be.uantwerpen.fti.ei.DB.Database;
 import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.Split.Split;
-import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.User;
 import be.uantwerpen.fti.ei.ValidActivityNames;
 
