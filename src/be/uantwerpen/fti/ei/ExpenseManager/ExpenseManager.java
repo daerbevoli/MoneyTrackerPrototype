@@ -11,19 +11,19 @@ import java.util.*;
 
 // expense manager = controller & facade
 public class ExpenseManager{
+    private final List<Observer> observers;
 
     private final Database<Expense> expenses;
     private final Database<User> users;
     private final Map<User, Map<User, Double>> balanceSheet;
     private final Map<User, Double> debtMap;
 
-    private List<Observer> observers = new ArrayList<>();
-
     public ExpenseManager(Database<User> users, Database<Expense> expenses) {
         this.users = users;
         this.expenses = expenses;
         balanceSheet = new HashMap<>();
         debtMap = new TreeMap<>();
+        this.observers = new ArrayList<>();
     }
 
     public void addUser(User user){

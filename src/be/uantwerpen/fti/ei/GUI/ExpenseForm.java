@@ -215,7 +215,7 @@ public class ExpenseForm extends JPanel implements Constants {
 
                 // Add expense and handle other tasks
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
-                JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
 
 
                 // Reset fields

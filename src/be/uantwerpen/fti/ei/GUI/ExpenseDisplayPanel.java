@@ -7,6 +7,7 @@ import be.uantwerpen.fti.ei.Split.Split;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ExpenseDisplayPanel extends JPanel implements Constants {
@@ -42,22 +43,40 @@ public class ExpenseDisplayPanel extends JPanel implements Constants {
         }
     }
 
-    private String getExpenseString(Expense expense){
+    private String getExpenseString(Expense expense) {
         String activity = expense.getName();
         String paidBy = expense.getPaidBy().getName();
-        String amount = String.valueOf(expense.getAmount());
+        double amount = expense.getAmount();
         String type = expense.getExpenseType().toLowerCase();
-        StringBuilder splits = new StringBuilder();
-        for (Split split : expense.getSplits()){
-            if (split.getUser().getName().equals(paidBy)){
-                splits.append(" himself ");
+
+        // List to hold names of other participants
+        List<String> participantNames = new ArrayList<>();
+        boolean paidByIncludedInSplits = false;
+
+        // Iterate through splits to build the list of participants
+        for (Split split : expense.getSplits()) {
+            String participantName = split.getUser().getName();
+            if (participantName.equals(paidBy)) {
+                paidByIncludedInSplits = true; // Mark if 'paidBy' user is in the splits
             } else {
-                splits.append(" ").append(split.getUser().getName());
+                participantNames.add(participantName); // Add other participants to the list
             }
         }
+
+        // Build the splits string
+        StringBuilder splits = new StringBuilder();
+        if (paidByIncludedInSplits) {
+            splits.append("himself");
+            if (!participantNames.isEmpty()) {
+                splits.append(", ");
+            }
+        }
+
+        // Append other participants, separated by commas
+        splits.append(String.join(", ", participantNames));
+
         return paidBy + " paid " + amount + " for " + activity + " to " + splits + ", split " + type;
     }
-
     public JButton getBackButton() {
         return backButton;
     }

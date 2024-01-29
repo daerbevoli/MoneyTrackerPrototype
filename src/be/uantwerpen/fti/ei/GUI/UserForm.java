@@ -16,6 +16,7 @@ public class UserForm extends JPanel implements Constants {
     private final JButton removeButton;
     private final JButton backButton;
 
+
     public UserForm(ExpenseManager expenseManager, ExpenseForm expenseForm) {
         this.expenseManager = expenseManager;
         this.expenseForm = expenseForm;
@@ -75,8 +76,8 @@ public class UserForm extends JPanel implements Constants {
                 expenseForm.addToPaidByBox(user);
                 expenseForm.addUserToSplits(user);
                 this.username.setText("");
-                JOptionPane.showMessageDialog(this, "User " + user.getName() +
-                        " successfully added", "AddSuccess", JOptionPane.INFORMATION_MESSAGE);
+                //JOptionPane.showMessageDialog(this, "User " + user.getName() +
+             //           " successfully added", "AddSuccess", JOptionPane.INFORMATION_MESSAGE);
             }
         }));
     }

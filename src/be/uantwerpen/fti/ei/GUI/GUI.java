@@ -20,7 +20,7 @@ public class GUI extends JFrame implements Constants {
         Database<Expense> dbExpenses = ExpenseDB.getInstance();
         ExpenseManager expenseManager = new ExpenseManager(dbUsers, dbExpenses);
 
-        Observer expensesObs = new expensesObs();
+        Observer expensesObs = new expensesObs(this);
         dbExpenses.register(expensesObs);
         Observer usersObs = new usersObs();
         dbUsers.register(usersObs);
