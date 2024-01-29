@@ -14,7 +14,8 @@ public abstract class Database<T> implements Subject {
 
     public abstract void addEntry(T entry);
 
-    public abstract void removeEntry(T entry);
+    // not abstract because it does not get overridden in all the subclasses
+    public void removeEntry(T entry){};
 
     public abstract boolean isEmpty();
 

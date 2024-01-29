@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * The expense database stores all the expenses. Expenses can be added but not removed.
- * It employs the singleton design pattern so that the database cannot be defined multiple times.
+ * It employs the singleton design pattern so that the database cannot be instantiated multiple times.
  */
 public class ExpenseDB extends Database<Expense> {
 
@@ -35,12 +35,6 @@ public class ExpenseDB extends Database<Expense> {
         db.add(expense);
         // Notify observers
         notifyObserver();
-    }
-
-    // could use template pattern for this
-    @Override
-    public void removeEntry(Expense entry) {
-        //
     }
 
     @Override
