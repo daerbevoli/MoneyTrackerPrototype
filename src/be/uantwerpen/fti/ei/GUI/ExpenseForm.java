@@ -6,6 +6,7 @@ import be.uantwerpen.fti.ei.Split.EqualSplit;
 import be.uantwerpen.fti.ei.Split.ExactSplit;
 import be.uantwerpen.fti.ei.Split.Split;
 import be.uantwerpen.fti.ei.User;
+import be.uantwerpen.fti.ei.ValidActivityNames;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -30,6 +31,11 @@ public class ExpenseForm extends JPanel implements Constants {
 
     private final JButton addExpenseButton;
     private final JButton backButton;
+
+    private JLabel validActivitiesLabel;
+    private JList<String> validActivitiesList;
+    private JScrollPane validActivitiesScrollPane;
+
 
     public ExpenseForm(ExpenseManager expenseManager){
         this.expenseManager = expenseManager;
@@ -86,7 +92,38 @@ public class ExpenseForm extends JPanel implements Constants {
         usersAmountField = new ArrayList<>();
         usersAmountName = new ArrayList<>();
         expenseTypeBoxAction();
+
+        // Create a label for "Valid Activities:"
+        validActivitiesLabel = new JLabel("Valid Activities:");
+        validActivitiesLabel.setBounds(330, 100, 150, 20); // Adjust these values as needed
+        add(validActivitiesLabel);
+
+        // Create a JList for valid activity names
+        DefaultListModel<String> validActivitiesModel = new DefaultListModel<>();
+        for (ValidActivityNames activity : ValidActivityNames.values()) {
+            validActivitiesModel.addElement(activity.name());
+        }
+        validActivitiesList = new JList<>(validActivitiesModel);
+        validActivitiesList.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
+        // Add a ListSelectionListener to the validActivitiesList
+        validActivitiesList.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) { // This condition prevents double events
+                String selectedActivity = validActivitiesList.getSelectedValue();
+                if (selectedActivity != null && !selectedActivity.isEmpty()) {
+                    expenseField.setText(selectedActivity); // Set the selected activity to the expenseField
+                }
+            }
+        });
+
+        // Add the validActivitiesList to a JScrollPane
+        validActivitiesScrollPane = new JScrollPane(validActivitiesList);
+        validActivitiesScrollPane.setBounds(330, 120, 100, 50); // Adjust these values as needed
+        validActivitiesScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED);
+        add(validActivitiesScrollPane); // Add the scroll pane to the panel
+
     }
+
 
     public void addUserToSplits(User user){
         listModel.addElement(user);
@@ -217,13 +254,7 @@ public class ExpenseForm extends JPanel implements Constants {
 
                 // Add expense and handle other tasks
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
-<<<<<<< HEAD
-                //JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
-=======
-                JOptionPane.showMessageDialog(this, "Expense " + expense + " succesfully added",
-                        "AddSucces", JOptionPane.INFORMATION_MESSAGE);
->>>>>>> 69ce06ba4bcb5bd5df5faf6ae8a903d25212a613
-
+                // JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
 
                 // Reset fields
                 resetFields();

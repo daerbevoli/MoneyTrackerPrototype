@@ -5,6 +5,8 @@ import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.Split.Split;
 import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.User;
+import be.uantwerpen.fti.ei.ValidActivityNames;
+
 
 import java.util.*;
 
@@ -13,6 +15,7 @@ import java.util.*;
  * in the facade design pattern. This class handles the addition and removal of users and the addition of expenses.
  * It also handles the calculation and assignment of the total debts.
  */
+
 public class ExpenseManager{
     private final List<Observer> observers;
 
@@ -39,6 +42,11 @@ public class ExpenseManager{
     }
 
     public void addExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) throws Exception {
+        // Validate the activity category
+        if (!ValidActivityNames.contains(name)) {
+            throw new Exception("Invalid activity name: " + name);
+        }
+        // Create the expense using ExpenseFactory
         Expense expense = ExpenseFactory.createExpense(name, expenseType, amount, paidBy, splits);
         expenses.addEntry(expense);
 

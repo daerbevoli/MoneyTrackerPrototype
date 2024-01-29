@@ -52,30 +52,22 @@ public class ExpenseDisplayPanel extends JPanel implements Constants {
         String paidBy = expense.getPaidBy().getName();
         double amount = expense.getAmount();
         String type = expense.getExpenseType().toLowerCase();
-<<<<<<< HEAD
 
         // List to hold names of other participants
         List<String> participantNames = new ArrayList<>();
         boolean paidByIncludedInSplits = false;
 
         // Iterate through splits to build the list of participants
-        for (Split split : expense.getSplits()) {
+        StringBuilder splits = new StringBuilder();
+        for (Split split : expense.getSplits()){
             String participantName = split.getUser().getName();
             if (participantName.equals(paidBy)) {
                 paidByIncludedInSplits = true; // Mark if 'paidBy' user is in the splits
-=======
-        StringBuilder splits = new StringBuilder();
-        for (Split split : expense.getSplits()){
-            if (split.getUser().getName().equals(paidBy)){
-                splits.append(" self ");
->>>>>>> 69ce06ba4bcb5bd5df5faf6ae8a903d25212a613
-            } else {
-                participantNames.add(participantName); // Add other participants to the list
+        } else {
+                participantNames.add(participantName);
             }
         }
-
         // Build the splits string
-        StringBuilder splits = new StringBuilder();
         if (paidByIncludedInSplits) {
             splits.append("himself");
             if (!participantNames.isEmpty()) {
@@ -86,7 +78,7 @@ public class ExpenseDisplayPanel extends JPanel implements Constants {
         // Append other participants, separated by commas
         splits.append(String.join(", ", participantNames));
 
-        return paidBy + " paid " + amount + " for " + activity + " to " + splits + ", split " + type;
+        return paidBy + " paid " + amount + " for " + activity + " for " + splits + ", split " + type;
     }
     public JButton getBackButton() {
         return backButton;

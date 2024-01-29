@@ -16,6 +16,7 @@ public class ExpenseFactory {
 
     public static Expense createExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) throws Exception {
 
+
         switch (expenseType) {
             case "EXACT":
                 Expense expense = new ExactExpense(name, amount, paidBy, splits, expenseType);

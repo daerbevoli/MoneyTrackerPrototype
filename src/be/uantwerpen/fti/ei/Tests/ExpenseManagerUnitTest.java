@@ -14,6 +14,15 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class ExpenseManagerUnitTest {
 
+    /**
+     *   The ExpenseManagerUnitTest class consists of unit tests for the ExpenseManager class.
+     *   It tests 4 different aspects of the ExpenseManager class:
+     *   - Adding users
+     *   - Removing users
+     *   - Adding expenses
+     *   - Settling debts
+     */
+
     private ExpenseManager expenseManager;
     private UserDB userDB;
     private ExpenseDB expenseDB;

@@ -10,10 +10,17 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 public class IntegrationTest {
+    /**
+     *   The IntegrationTest class consists of integration tests for the ExpenseManager class.
+     *   It has one test for the equal expense workflow (Commented out because this would be in a separate integration test)
+     *   and one test for the exact expense workflow.
+     *   It sets up the ExpenseManager class with the UserDB and ExpenseDB singleton instances.
+     *   It then adds two users to the UserDB and adds an expense to the ExpenseDB.
+     *   It then checks if the expense is added to the ExpenseDB and if the debt is settled correctly.
+     */
 
     private ExpenseManager expenseManager;
     private UserDB userDB;
