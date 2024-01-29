@@ -10,6 +10,10 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The ExpenseDisplayPanel class displays the expenses in the form
+ * 'user1 paid amount for activity to userx, ... split expenseType'.
+ */
 public class ExpenseDisplayPanel extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;
@@ -48,6 +52,7 @@ public class ExpenseDisplayPanel extends JPanel implements Constants {
         String paidBy = expense.getPaidBy().getName();
         double amount = expense.getAmount();
         String type = expense.getExpenseType().toLowerCase();
+<<<<<<< HEAD
 
         // List to hold names of other participants
         List<String> participantNames = new ArrayList<>();
@@ -58,6 +63,12 @@ public class ExpenseDisplayPanel extends JPanel implements Constants {
             String participantName = split.getUser().getName();
             if (participantName.equals(paidBy)) {
                 paidByIncludedInSplits = true; // Mark if 'paidBy' user is in the splits
+=======
+        StringBuilder splits = new StringBuilder();
+        for (Split split : expense.getSplits()){
+            if (split.getUser().getName().equals(paidBy)){
+                splits.append(" self ");
+>>>>>>> 69ce06ba4bcb5bd5df5faf6ae8a903d25212a613
             } else {
                 participantNames.add(participantName); // Add other participants to the list
             }

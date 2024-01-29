@@ -5,6 +5,9 @@ import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * The homePanel class handles the switching between the panels.
+ */
 public class HomePanel {
 
     private final ExpenseManager expenseManager;
@@ -48,7 +51,7 @@ public class HomePanel {
         cardPanel.add(expensePanel, "Expenses");
         cardPanel.add(debtsPanel, "Debts");
 
-        // two main buttons
+        // three main buttons
         switchUsers = new JButton("Users");
         switchExpenses = new JButton("Expenses");
         switchDebts = new JButton("Debts");
@@ -125,7 +128,7 @@ public class HomePanel {
         return panel;
     }
 
-    // switch to one of the main panels
+    // Panel switch actions
 
     private void addSwitchUsersAction(){
         this.switchUsers.addActionListener(listener ->
@@ -142,25 +145,21 @@ public class HomePanel {
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Debts")));
     }
 
-    // switch to add or remove user panel
     private void addRemoveUserAction(){
         this.addRemoveUser.addActionListener(listener ->
                 SwingUtilities.invokeLater(()-> cardLayout.show(cardPanel, "userForm")));
     }
 
-    // return to main panel from user panel
     private void addRemoveUserformBackAction(){
         this.userForm.getBackButton().addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));
     }
 
-    // display users panel
     private void showUsersAction() {
         this.showUsers.addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "displayUsers")));
     }
 
-    // return from display users panel
     private void showUserActionBackButton(){
         this.userDisplayPanel.getBackButton().addActionListener(listener ->
                 SwingUtilities.invokeLater(() -> cardLayout.show(cardPanel, "Users")));

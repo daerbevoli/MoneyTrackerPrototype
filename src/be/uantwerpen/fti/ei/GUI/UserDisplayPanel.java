@@ -2,13 +2,15 @@ package be.uantwerpen.fti.ei.GUI;
 
 import be.uantwerpen.fti.ei.Constants;
 import be.uantwerpen.fti.ei.ExpenseManager.ExpenseManager;
-import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.User;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * The UserDisplayPanel class displays the users in the form 'User x : username'.
+ */
 public class UserDisplayPanel extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;

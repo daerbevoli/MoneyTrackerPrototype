@@ -2,10 +2,14 @@ package be.uantwerpen.fti.ei.SubjectObservers;
 
 import javax.swing.*;
 
-public class usersObs implements Observer{
-    private JFrame frame;
+/**
+ * The user Observer class observes the user database and notifies when a user is added to the database.
+ */
+public class userObs implements Observer{
+    private final JFrame frame;
     private int userCounter;
-    public usersObs(){
+    public userObs(JFrame frame) {
+        this.frame = frame;
     }
 
     @Override

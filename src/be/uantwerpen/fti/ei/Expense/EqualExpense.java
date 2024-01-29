@@ -6,6 +6,9 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.List;
 
+/**
+ * The equal expense class.
+ */
 public class EqualExpense extends Expense {
     public EqualExpense(String name, double amount, User paidBy, List<Split> splits, String expenseType) {
         super(name, amount, paidBy, splits, expenseType);

@@ -5,6 +5,10 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.List;
 
+/**
+ * The abstract expense class.
+ * The validate method is implemented in its subclasses specific to their use.
+ */
 public abstract class Expense {
     private String name;
     private double amount;

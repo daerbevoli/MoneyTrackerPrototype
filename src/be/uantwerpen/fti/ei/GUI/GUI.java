@@ -12,7 +12,13 @@ import be.uantwerpen.fti.ei.User;
 import javax.swing.*;
 import java.awt.*;
 
-// GUI = view
+/**
+ * This is the GUI class. It represents the view in the MVC design pattern.
+ * The class takes the databases and creates the expense manager with it. The expense manager is then given to
+ * the home panel that interacts with the client.
+ * The client inputs data on the GUI -> the expense manager then handles the input and changes the model
+ * -> the database is changes -> the expense manager updates the GUI -> the GUI updates its displays.
+ */
 public class GUI extends JFrame implements Constants {
 
     public GUI(){
@@ -20,10 +26,10 @@ public class GUI extends JFrame implements Constants {
         Database<Expense> dbExpenses = ExpenseDB.getInstance();
         ExpenseManager expenseManager = new ExpenseManager(dbUsers, dbExpenses);
 
-        Observer expensesObs = new expensesObs(this);
+        Observer expensesObs = new expenseObs(this);
         dbExpenses.register(expensesObs);
-        Observer usersObs = new usersObs();
-        dbUsers.register(usersObs);
+        Observer userObs = new userObs(this);
+        dbUsers.register(userObs);
 
         HomePanel homePanel = new HomePanel(expenseManager);
         this.add(homePanel.getCardPanel(), BorderLayout.CENTER);

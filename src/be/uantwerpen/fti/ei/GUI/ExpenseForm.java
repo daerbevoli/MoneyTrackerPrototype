@@ -11,13 +11,16 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The ExpenseForm class handles the input of expenses taking into account wrong inputs.
+ */
 public class ExpenseForm extends JPanel implements Constants {
 
     private final ExpenseManager expenseManager;
 
     private final JTextField expenseField;
     private final JTextField amountField;
-    private final JComboBox<String> paidbyBox;
+    private final JComboBox<String> paidByBox;
     private final JComboBox<String> expenseTypeBox;
     private final DefaultListModel<User> listModel;
     private final DefaultListModel<String> nameModel = new DefaultListModel<>();
@@ -36,7 +39,7 @@ public class ExpenseForm extends JPanel implements Constants {
         JLabel expenseLabel = makeNameLabel("Activity: ", 100);
         JLabel amountLabel = makeNameLabel("Amount: ", 150);
         JLabel paidByLabel = makeNameLabel("Paid by: ", 200);
-        JLabel expenseTypeLabel = makeNameLabel("Expense type: ", 250);
+        JLabel expenseTypeLabel = makeNameLabel("Type: ", 250);
         JLabel splits = makeNameLabel("Splits: ", 300);
 
         add(expenseLabel);
@@ -46,17 +49,17 @@ public class ExpenseForm extends JPanel implements Constants {
         add(splits);
 
         expenseField = new JTextField(8);
-        expenseField.setBounds(200, 100, bWidth, bHeight);
+        expenseField.setBounds(xPosField, 100, bWidth, bHeight);
         amountField = new JTextField(8);
-        amountField.setBounds(200, 150, bWidth, bHeight);
-        paidbyBox = new JComboBox<>();
-        paidbyBox.setBounds(200, 200, bWidth, bHeight);
+        amountField.setBounds(xPosField, 150, bWidth, bHeight);
+        paidByBox = new JComboBox<>();
+        paidByBox.setBounds(xPosField, 200, bWidth, bHeight);
         expenseTypeBox = new JComboBox<>();
-        expenseTypeBox.setBounds(200, 250, bWidth, bHeight);
+        expenseTypeBox.setBounds(xPosField, 250, bWidth, bHeight);
 
         add(expenseField);
         add(amountField);
-        add(paidbyBox);
+        add(paidByBox);
         add(expenseTypeBox);
 
         fillExpenseTypeBox();
@@ -68,11 +71,11 @@ public class ExpenseForm extends JPanel implements Constants {
 
         // Add the JList to a JScrollPane
         JScrollPane scrollPane = new JScrollPane(peopleList);
-        scrollPane.setBounds(200, 300, 100, 60);
+        scrollPane.setBounds(xPosField, 300, bWidth, 60);
         add(scrollPane);
 
         addExpenseButton = new JButton("Add");
-        addExpenseButton.setBounds(200,375, bWidth, bHeight);
+        addExpenseButton.setBounds(xPosField,375, bWidth, bHeight);
         add(addExpenseButton);
         addExpenseButtonAction();
 
@@ -130,7 +133,6 @@ public class ExpenseForm extends JPanel implements Constants {
             name.setVisible(false);
             add(name);
 
-
         }
     }
 
@@ -152,16 +154,16 @@ public class ExpenseForm extends JPanel implements Constants {
 
     private JLabel makeNameLabel(String name, int y){
         JLabel label = new JLabel(name);
-        label.setBounds(100, y, bWidth, bHeight);
+        label.setBounds(xPosLabel, y, bWidth, bHeight);
         return label;
     }
 
     public void addToPaidByBox(User user){
-        paidbyBox.addItem(user.getName());
+        paidByBox.addItem(user.getName());
     }
 
     public void removeFromPaidByBox(User user){
-        paidbyBox.removeItem(user.getName());
+        paidByBox.removeItem(user.getName());
     }
 
     private void fillExpenseTypeBox(){
@@ -189,7 +191,7 @@ public class ExpenseForm extends JPanel implements Constants {
                 int amount = Integer.parseInt(amountText);
                 User paidBy = null;
                 for (User user : expenseManager.getUsers().getData()){
-                    if (user.getName().equals(String.valueOf(paidbyBox.getSelectedItem()))){
+                    if (user.getName().equals(String.valueOf(paidByBox.getSelectedItem()))){
                         paidBy = user;
                         break;
                     }
@@ -215,7 +217,12 @@ public class ExpenseForm extends JPanel implements Constants {
 
                 // Add expense and handle other tasks
                 expenseManager.addExpense(expense, expenseType, amount, paidBy, splits);
+<<<<<<< HEAD
                 //JOptionPane.showMessageDialog(this, expense + " succesfully added", "AddSucces", JOptionPane.INFORMATION_MESSAGE);
+=======
+                JOptionPane.showMessageDialog(this, "Expense " + expense + " succesfully added",
+                        "AddSucces", JOptionPane.INFORMATION_MESSAGE);
+>>>>>>> 69ce06ba4bcb5bd5df5faf6ae8a903d25212a613
 
 
                 // Reset fields
@@ -232,7 +239,7 @@ public class ExpenseForm extends JPanel implements Constants {
         expenseField.setText("");
         amountField.setText("");
         expenseTypeBox.setSelectedItem("EQUAL");
-        paidbyBox.setSelectedItem(nameModel.get(0));
+        paidByBox.setSelectedItem(nameModel.get(0));
 
         for (JTextField text : usersAmountField) {
             text.setText("");

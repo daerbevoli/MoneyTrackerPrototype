@@ -3,13 +3,16 @@ package be.uantwerpen.fti.ei.ExpenseManager;
 import be.uantwerpen.fti.ei.DB.Database;
 import be.uantwerpen.fti.ei.Expense.Expense;
 import be.uantwerpen.fti.ei.Split.Split;
-import be.uantwerpen.fti.ei.SubjectObservers.*;
 import be.uantwerpen.fti.ei.SubjectObservers.Observer;
 import be.uantwerpen.fti.ei.User;
 
 import java.util.*;
 
-// expense manager = controller & facade
+/**
+ * The expense manager class. This class is the controller in the MVC design pattern and the facade
+ * in the facade design pattern. This class handles the addition and removal of users and the addition of expenses.
+ * It also handles the calculation and assignment of the total debts.
+ */
 public class ExpenseManager{
     private final List<Observer> observers;
 

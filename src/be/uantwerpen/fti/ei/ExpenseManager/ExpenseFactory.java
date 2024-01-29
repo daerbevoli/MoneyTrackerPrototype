@@ -8,7 +8,10 @@ import be.uantwerpen.fti.ei.User;
 
 import java.util.List;
 
-// Factory design pattern
+/**
+ * The expense factory class. It creates the expense depending on the split type.
+ * This class employs the factory pattern.
+ */
 public class ExpenseFactory {
 
     public static Expense createExpense(String name, String expenseType, double amount, User paidBy, List<Split> splits) throws Exception {
